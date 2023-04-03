@@ -1,0 +1,69 @@
+#+TITLE: Creación de Módulos Python
+
+#+begin_src shell 
+git clone https://gitlab.com/pineiden/sesiones-curso-python.git
+#+end_src
+
+#+RESULTS:
+
+* Bibliotecas  a instalar
+
+rich
+ptpython
+click
+twine -> pypi
+pydantic -> typing
+setuptools
+
+* Resolver un problema
+
+En la época dorada de corsarios y piratas, por ahí el siglo XVII, hubo un
+naufrágio en una isla perdida del Caribe de un galeón español cargado
+de oro. 
+
+Se levantó un humo grande y los siete mayores piratas que estaban cerca se
+aprestaron al rescate del tesoro.
+
+Si ubicamos la isla y cada uno de los barcos en una cuadrícula y sus posicions
+descritas en la siguiente tabla.
+
+a) Si todos los barcos pueden navegar a 10 millas por hora (10[mph])
+
+¿Quién llegaría primero?
+¿Cuánto demora cada uno?
+
+| id | barco          |   x |    y |
+|----+----------------+-----+------|
+|  0 | galeón español |  30 | 31.5 |
+|  1 | Sir Cook       |  11 |   18 |
+|  2 | Barba Azul     |  21 |   16 |
+|  3 | Lady Mary      |  18 |  3.5 |
+|  4 | Black Pepe     |  17 |   45 |
+|  5 | Little Mike    | 5.5 |   26 |
+|  6 | El Jeque       |  24 | 17.4 |
+|  7 | Martona        |  37 | 13.2 |
+
+** Simplificación
+
+En una sola línea evaluar la cercanía al punto de la isla de dos
+barcos ubicados a diferente distancia.
+
+** Script
+
+** Evolución 1
+
+** Script interactivo
+
+** Comando de consola
+
+* Modularizar
+
+* Pruebas
+
+* Esquema de setuptools
+** Script tradicional
+** Instalación de prueba
+*** Modo desarrollo
+*** Modo producción
+
+* Subir módulo a pypi

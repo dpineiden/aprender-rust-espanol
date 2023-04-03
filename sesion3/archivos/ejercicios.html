@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-10-15 Sat 14:02 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ejercicios de C</title>
+<meta name="author" content="David" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Ejercicios de C</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgfc436c8">1. Básico</a>
+<ul>
+<li><a href="#org8de5b21">1.1. Problema PR1</a></li>
+<li><a href="#org229e032">1.2. Problema PR2</a></li>
+<li><a href="#orgb27df55">1.3. Datos en pies y libras, convertir a metros y kilos</a></li>
+<li><a href="#org90cd88f">1.4. Superficie y volumen de cilindro.</a></li>
+<li><a href="#org34db66c">1.5. Acres a hectareas</a></li>
+<li><a href="#org688f907">1.6. Area de triangulo en base a sus lados.</a></li>
+<li><a href="#org46d140e">1.7. Perímetro dados dos puntos</a></li>
+</ul>
+</li>
+<li><a href="#org4952ff8">2. Ejercicios</a>
+<ul>
+<li><a href="#orga00f6d3">2.1. rev1</a></li>
+<li><a href="#org7b66830">2.2. rev2</a></li>
+<li><a href="#orgf97130a">2.3. rev3</a></li>
+<li><a href="#orgbd23e9e">2.4. rev4</a></li>
+<li><a href="#orgc1b8a27">2.5. rev5: circulo</a></li>
+<li><a href="#org19f6d3b">2.6. reve6: cambio dolar</a></li>
+<li><a href="#org4e924e5">2.7. rev8: velocidad km/hr</a></li>
+<li><a href="#orgcbc896a">2.8. rev8: segundos en dias</a></li>
+<li><a href="#org0c02add">2.9. rev10: numero a digitos</a></li>
+<li><a href="#org13a8a0d">2.10. rev11: cono, areas y volumen</a></li>
+</ul>
+</li>
+<li><a href="#org2fdcf39">3. Estructuras algoritmicas (Cap2)</a>
+<ul>
+<li><a href="#orgd03af21">3.1. Uso de if</a>
+<ul>
+<li><a href="#org6377109">3.1.1. Precio de un producto</a></li>
+</ul>
+</li>
+<li><a href="#org038168c">3.2. Uso de else</a>
+<ul>
+<li><a href="#orga3822e8">3.2.1. Precio de un producto</a></li>
+</ul>
+</li>
+<li><a href="#orgf4fcc1e">3.3. Uso de switch</a></li>
+<li><a href="#orgb92d247">3.4. Uso switch en base a casos de una tabla</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfc436c8" class="outline-2">
+<h2 id="orgfc436c8"><span class="section-number-2">1.</span> Básico</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-C" id="orgb3fbff7">printf("mi primer programa en C");
+</pre>
+</div>
+
+
+<p>
+Ejemplo con números y formatos
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C" id="org2ffb758">float x = 6.2555, z = 7.2576;
+int y = 4, t = -5;
+printf("Valores x:%4.2f \n z: %5.2e \n y:%5d \n t:%d", x, z, y, t);
+</pre>
+</div>
+
+<p>
+Ingresar 4 valores y mostrarlas invertidas
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+ int A,B,C,D;
+ printf("Ingrese cuatro datos de tipo entero\n");
+ scanf("%d %d %d %d\n", &amp;A, &amp;B, &amp;C, &amp;D);
+ printf("%d %d %d %d\n", D, C, B, A);
+}
+</pre>
+</div>
+
+<p>
+Ingresar los sueldos de 6 meses de usuario, caucluar valor promedio.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+  int CLA;
+  float SU1, SU2, SU3, SU4, SU5, SU6, ING, PRO;
+  printf("Ingrese la clave del empleado y los 6 sueldos: \n");
+  scanf("%d %f %f %f %f %f %f", &amp;CLA, &amp;SU1, &amp;SU2, &amp;SU3, &amp;SU4, &amp;SU5, &amp;SU6);
+  ING = (SU1 + SU2 + SU3 + SU4 +SU5 + SU6);
+  PRO= ING/6;
+  printf("ID: %d Ingreso Total:  %5.2f Promedio: %5.2f \n", CLA, ING, PRO);
+  }
+</pre>
+</div>
+
+
+<p>
+Superficie de un triángulo
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C" id="orgc9bbc25">void main(void){
+  float BAS, ALT, SUP;
+  printf("Ingrese la base y altura de tríangulo: \n");
+  scanf("%f %f", &amp;BAS, &amp;ALT);
+  SUP = BAS * ALT / 2;
+  printf("La superficie del triángulo es: %5.2f \n", SUP);
+}
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org8de5b21" class="outline-3">
+<h3 id="org8de5b21"><span class="section-number-3">1.1.</span> Problema PR1</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+<pre class="src src-C" id="org0569312">  printf("pr1\n");
+  int i=5, j=7, k=3;
+  int m1;
+  float x=2.5, z=1.8;
+  float t;
+  m1=((j % k)/2)+1;
+  m1 += i;
+  m1 %= --i;
+  printf("El valor de m1 es: %d\n", m1);
+  t = ((float) (j % k) / 2);
+  t++;
+  x *= ++z;
+  t -= (x += ++i);
+  printf("El valor de t es: %.2f\n",t);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org229e032" class="outline-3">
+<h3 id="org229e032"><span class="section-number-3">1.2.</span> Problema PR2</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-C" id="org60c0bb1">  int i= 15, j, k, l;
+  
+  j = (15 &gt; i--) &gt; (14 &lt; ++i);
+  printf("Valor de j es: %d\n", j);
+
+  k = ! ('b' != 'd') &gt; ( !i - 1);
+  printf("El valor de k es: %d\n", k);
+
+  l = (!(34 &gt; (70%2)) || 0);
+  printf("El valor de l es: %d\n",l);
+</pre>
+</div>
+
+<p>
+Problema PR3
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb27df55" class="outline-3">
+<h3 id="orgb27df55"><span class="section-number-3">1.3.</span> Datos en pies y libras, convertir a metros y kilos</h3>
+<div class="outline-text-3" id="text-1-3">
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+float PIE, LIB, MET, KIL;
+printf("Ingrese los datos del objeto: \n");
+ scanf("%f %f", &amp;PIE, &amp;LIB);
+ MET = PIE * 0.09290;
+ KIL = LIB * 0.45359;
+ printf("Datos de objeto \nLongitud: %5.2f \t Peso: %5.2f\n", MET, KIL);
+ }
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org90cd88f" class="outline-3">
+<h3 id="org90cd88f"><span class="section-number-3">1.4.</span> Superficie y volumen de cilindro.</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+float RAD,ALT,VOL,ARE;
+ printf("Ingrese el radio y la altura del cilindro:\n");
+ scanf("%f %f", &amp;RAD, &amp;ALT);
+ VOL = M_PI * pow(RAD,2) * ALT;
+ ARE = 2 * M_PI * RAD * ALT;
+ printf("El volumen es %6.2f \t El área es: %6.2f \n", VOL, ARE);
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org34db66c" class="outline-3">
+<h3 id="org34db66c"><span class="section-number-3">1.5.</span> Acres a hectareas</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+float ECA;
+ printf("Ingrese la extension de la estancia: \n");
+ scanf("%f", &amp;ECA);
+ ECA = ECA * 4047/10000;
+ printf("La extension en hetareas es: %5.2f", ECA);
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org688f907" class="outline-3">
+<h3 id="org688f907"><span class="section-number-3">1.6.</span> Area de triangulo en base a sus lados.</h3>
+<div class="outline-text-3" id="text-1-6">
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+  float LA1, LA2, LA3, AUX, ARE;
+  printf("Ingresa los lados del triángulo: \n");
+  scanf("%f %f %f", &amp;LA1, &amp;LA2, &amp;LA3);
+  AUX=(LA1 + LA2 + LA3)/2;
+  ARE = sqrt (AUX * (AUX-LA1) * (AUX-LA2) * (AUX-LA3));
+  printf("El área del triángulo es: %6.2f \n", ARE);
+  }
+</pre>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-org46d140e" class="outline-3">
+<h3 id="org46d140e"><span class="section-number-3">1.7.</span> Perímetro dados dos puntos</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+Construye un diagrama de flujo que, al recibir como datos las coordenadas de los
+puntos P1, P2 y P3 que corresponden a los vértices de un triángulo, calcule su
+perímetro.
+</p>
+
+<p>
+Datos: X1, Y1, X2, Y2, X3, Y3 (variables de tipo real que representan las
+coordenadas de los puntos P1, P2 y P3 ).
+</p>
+
+<p>
+Consideraciones:
+• Para calcular la distancia DIS entre dos puntos dados P1 y P2 aplicamos la siguiente
+fórmula:
+</p>
+
+<p>
+Distancia entre dos puntos.
+</p>
+
+<p>
+\begin{equation}                        % arbitrary environments,
+DIS = \sqrt { (X1 - X2) ^ 2 + (Y1 - Y2) ^ 2}
+\end{equation}                          % etc
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+float X1, Y1, X2, Y2, X3, Y3, LA1, LA2, LA3, PER;
+ printf("Ingresa la coordenada para punto P1:\n");
+ scanf("%f %f", &amp;X1, &amp;Y1);
+ printf("Ingresa la coordenada para punto P2:\n");
+ scanf("%f %f", &amp;X2, &amp;Y2);
+ printf("Ingresa la coordenada para punto P3:\n");
+ scanf("%f %f", &amp;X3, &amp;Y3);
+LA1 = sqrt (pow (X1-X2,2) + pow (Y1-Y2,2) );
+LA2 = sqrt (pow (X2-X3,2) + pow (Y2-Y3,2) );
+LA3 = sqrt (pow (X1-X3,2) + pow (Y1-Y3,2) );
+PER =  LA1 + LA2 + LA3;
+ printf("El perímetro del tríangulo es: %6.3f\n", PER); 
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org4952ff8" class="outline-2">
+<h2 id="org4952ff8"><span class="section-number-2">2.</span> Ejercicios</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orga00f6d3" class="outline-3">
+<h3 id="orga00f6d3"><span class="section-number-3">2.1.</span> rev1</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-C">int i,j,k=2, l=7;
+
+ i = 9 + 3*2;
+ j = 8%6 + 4*2;
+ i %= j;
+ printf("El valor de i es: %d\n", i);
+
+ ++l;
+ --k;
+ k -= l++ * 2;
+ printf("El valor de k es: %d\n", k);
+
+ i = 5.5 - 3*2 % 4;
+ j = (i*2-(k=3, --k));
+ printf("El valor de j es: %d\n", j);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7b66830" class="outline-3">
+<h3 id="org7b66830"><span class="section-number-3">2.2.</span> rev2</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-C">int i=5, j=4, k, l, m;
+k = !i*2 + --j *2 -3;
+printf("El valor de k es: %d \n", k);
+
+l = ! (!i ||  1 &amp;&amp; 0) &amp;&amp; 1;
+printf("El valor de l es: %d \n", l);
+
+m = (k=(!(12&gt;10)), j=(10||0) &amp;&amp; k, (! (k || j)));
+printf("El valor de m es : %d \n", m);
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgf97130a" class="outline-3">
+<h3 id="orgf97130a"><span class="section-number-3">2.3.</span> rev3</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Operar dos valores con suma, resta, multiplicaición.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+  float a, b;
+  printf("Ingresa dos valores a operar:\n");
+  scanf("%f %f", &amp;a, &amp;b);
+  printf("La suma es: %6.3f \n", b+a);
+  printf("La resta es: %6.3f \n", b-a);
+  printf("La diferencia es: %6.3f \n", b*a);
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgbd23e9e" class="outline-3">
+<h3 id="orgbd23e9e"><span class="section-number-3">2.4.</span> rev4</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+Calcular el cambio de un producto dado lo que se entrega.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C">const float COSTO = 140;
+
+void main(void){
+ float PAGAR, VUELTO;
+ printf("El valor es %6.2f", COSTO);
+ printf("Cuánto vas a pagar?\n");
+ scanf("%f", &amp;PAGAR);
+ VUELTO = PAGAR-COSTO;
+ printf("El vuelto será: %f\n", VUELTO);
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgc1b8a27" class="outline-3">
+<h3 id="orgc1b8a27"><span class="section-number-3">2.5.</span> rev5: circulo</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+Area y perímetro de círculo
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+  float RADIO, AREA, PERIMETRO;
+  printf("Ingresa radio del círculo:\n");
+  scanf("%f", &amp;RADIO);
+  AREA = M_PI * pow (RADIO, 2);
+  PERIMETRO = 2 * M_PI * RADIO;
+  printf("Area %6.3f\n", AREA);
+  printf("Perímetro %6.3f\n", PERIMETRO);  
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org19f6d3b" class="outline-3">
+<h3 id="org19f6d3b"><span class="section-number-3">2.6.</span> reve6: cambio dolar</h3>
+<div class="outline-text-3" id="text-2-6">
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+ const float valor=12.48;
+ float cantidad, total;
+ printf("Ingresa cantidad de dolares a cambiar:\n");
+ scanf("%f", cantidad);
+ total =  cantidad * valor;
+ printf("El cambio será de $ %6.3f", total);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4e924e5" class="outline-3">
+<h3 id="org4e924e5"><span class="section-number-3">2.7.</span> rev8: velocidad km/hr</h3>
+<div class="outline-text-3" id="text-2-7">
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+  float DIS,MIN,SEG,CEN,TSE,VMS,VKH;
+  printf("Ingresa los valores de distancia, min, seg, cen");
+  scanf("%f %f %f %f", &amp;DIS, &amp;MIN, &amp;SEG, &amp;CEN);
+  TSE=MIN*60+SEG+CEN/100;
+  VMS=DIS/TSE;
+  VKH=VMS*3600/1000;
+  printf("La velocidad final será %6.2f", VKH);
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgcbc896a" class="outline-3">
+<h3 id="orgcbc896a"><span class="section-number-3">2.8.</span> rev8: segundos en dias</h3>
+<div class="outline-text-3" id="text-2-8">
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+const int SEGDIA=24*60*60;
+ int SEGUNDOS, DIAS;
+ printf("Cantidad de dias:\n");
+ scanf("%d", &amp;DIAS);
+ SEGUNDOS=SEGDIA*DIAS;
+ printf("Total segundos %d\n", SEGUNDOS);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0c02add" class="outline-3">
+<h3 id="org0c02add"><span class="section-number-3">2.9.</span> rev10: numero a digitos</h3>
+<div class="outline-text-3" id="text-2-9">
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+int i=0;
+int NUM, DIG;
+printf("Escribe un número de 4 dígitos\n");
+scanf("%d",&amp;NUM);
+DIG=(NUM - NUM%1000)/1000;
+NUM=NUM%1000;
+printf("%d\n",DIG);
+DIG=(NUM-NUM%100)/100;
+NUM=NUM%100;
+printf("%d\n",DIG);
+DIG=(NUM-NUM%10)/10;
+NUM=NUM%10;
+printf("%d\n",DIG);
+DIG=NUM;
+printf("%d\n",DIG);
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org13a8a0d" class="outline-3">
+<h3 id="org13a8a0d"><span class="section-number-3">2.10.</span> rev11: cono, areas y volumen</h3>
+<div class="outline-text-3" id="text-2-10">
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+  float RADIO, ALTURA, BASE, GENE, LATERAL, SUP_CONO, VOL_CONO;
+  printf("Ingresa radio y altura\n");
+  scanf("%f %f", &amp;RADIO, &amp;ALTURA);
+  BASE = M_PI * pow (RADIO, 2);
+  GENE = sqrt( pow (RADIO,2) + pow (ALTURA,2)); 
+  LATERAL = M_PI * RADIO * GENE;
+  SUP_CONO = BASE + LATERAL;
+  VOL_CONO = (1/3)*BASE*ALTURA;
+  printf("Superficie cono: %f, Volumen cono: %f", SUP_CONO, VOL_CONO);
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2fdcf39" class="outline-2">
+<h2 id="org2fdcf39"><span class="section-number-2">3.</span> Estructuras algoritmicas (Cap2)</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgd03af21" class="outline-3">
+<h3 id="orgd03af21"><span class="section-number-3">3.1.</span> Uso de if</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+<pre class="src src-C" id="org9d7458d">float promedio;
+promedio = 8;
+if (promedio&gt;=6){
+  printf("Aprobado!");
+ }
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org6377109" class="outline-4">
+<h4 id="org6377109"><span class="section-number-4">3.1.1.</span> Precio de un producto</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+Si el valor es inferior a 1500, incrementar 11%, mostrar precio final
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C">float valor, valor_final;
+valor = 1200;
+valor_final = valor;
+if (valor&lt;=1500){
+  valor_final = valor*1.1;
+ }
+printf("Valor fianl es %f", valor_final);
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org038168c" class="outline-3">
+<h3 id="org038168c"><span class="section-number-3">3.2.</span> Uso de else</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-C" id="orgabadc3b">float promedio;
+promedio = 4;
+if (promedio&gt;=6){
+  printf("Aprobado!");
+ } else {
+  printf("Reprobado!");
+ }
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-orga3822e8" class="outline-4">
+<h4 id="orga3822e8"><span class="section-number-4">3.2.1.</span> Precio de un producto</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+Si el valor es inferior a 1500, incrementar 11%, mostrar precio final, un 8% si es mayor.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C" id="org7dc57d7">float valor, valor_final;
+valor = 1600;
+if (valor&lt;=1500){
+  valor_final = valor * 1.11;
+ }
+else{
+  valor_final = valor * 1.08;
+ }
+printf("Valor final es %f", valor_final);
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgf4fcc1e" class="outline-3">
+<h3 id="orgf4fcc1e"><span class="section-number-3">3.3.</span> Uso de switch</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Construir un diagrama de flujo y el correspondiente programa en C.
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-C">float T;
+int OP;
+float RES;
+printf("Ingresa la opción de calculo y el valor entero: ");
+T=13;
+OP=1;
+switch(OP){
+  case 1:
+    RES=T/5;
+    break;
+  case 2:
+    RES= pow(T,T);
+    break;
+  case 3:
+  case 4:
+    RES = 6 * T / 2;
+    break;;
+  default:
+    RES = 1;
+    break;
+ }
+printf("Resultado : %7.2f\n", RES);
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb92d247" class="outline-3">
+<h3 id="orgb92d247"><span class="section-number-3">3.4.</span> Uso switch en base a casos de una tabla</h3>
+<div class="outline-text-3" id="text-3-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">Nivel</th>
+<th scope="col" class="org-right">Incremento[%]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">3.5</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-right">4.1</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-right">4.8</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-right">5.3</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="org-src-container">
+<pre class="src src-C">void main(void){
+float SAL;
+int NIV;
+printf("Ingrese nivel académico del profesor: \n");
+scanf("%d", &amp;NIV);
+printf("Ingrese el salario: \n");
+scanf("%f", &amp;SAL)
+switch(NIV){
+case 1: SAL = SAL * 1.035; break;
+case 2: SAL = SAL * 1.041; break;
+case 3: SAL = SAL * 1.048; break;
+case 4: SAL = SAL * 1.053; break;    
+ }
+printf("Nivel :%d, salario: %8.2f\n", NIV,SAL);
+ }
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: David</p>
+<p class="date">Created: 2022-10-15 Sat 14:02</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

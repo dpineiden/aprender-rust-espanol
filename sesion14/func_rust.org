@@ -1,0 +1,576 @@
+* Test rust on org-mode
+
+#+begin_src rust :results output
+fn main(){
+	println!("{}", 1+1);
+}
+#+end_src
+
+#+RESULTS:
+: 2
+
+* Definiciones elementales
+
+** Media de 3
+
+Como *lambda*
+
+#+begin_src rust
+let media = |x,y,z|->f64 {(x+y+z)/3.0};
+println!("{:?}", media(1.0,2.0,3.0));
+#+end_src
+
+#+RESULTS:
+: 2.0
+
+
+#+begin_src rust
+fn media(x:f64,y:f64,z:f64) -> f64{
+	(x+y+z)/3.0
+}
+println!("{:?}", media(1.0,2.0,3.0));
+#+end_src
+
+#+RESULTS:
+: 2.0
+
+
+** Suma de euroes
+
+Cantidades -> valores enteros positivos
+
+#+begin_src rust
+let suma_monedas = |a:u32,b:u32,c:u32,d:u32,e:u32|->u32 {a+2*b+5*c+10*d+20*e};
+println!("{:?}", suma_monedas(1,4,10,0,45));
+#+end_src
+
+#+RESULTS:
+: 959
+
+** volumen Esfera
+
+#+begin_src rust
+use std::f64::consts::PI;
+
+let volumen_esfera = |r:f64| {(4.0/3.0)*PI*f64::powf(r,3.0)};
+println!("{:?}", volumen_esfera(15.0));
+#+end_src
+
+#+RESULTS:
+: 14137.166941154068
+
+
+** Area corona circular
+
+#+begin_src rust
+use std::f64::consts::PI;
+
+let pow2 = |x| f64::powf(x,2.0);
+
+let area_corona = |r1:f64,r2:f64| {PI*(pow2(r2)-pow2(r1))};
+println!("{:?}", area_corona(3.0,5.0));
+#+end_src
+
+#+RESULTS:
+: 50.26548245743669
+
+** Última cifra de número
+
+#+begin_src rust
+let ultima_cifra = |n| n % 10;
+println!("{:?}", ultima_cifra(135));
+#+end_src
+
+#+RESULTS:
+: 5
+
+** Máximo de tres
+
+#+begin_src rust
+use std::cmp;
+let max_tres = |x,y,z| { cmp::max(x, cmp::max(y,z))};
+println!("{:?}", max_tres(3,2,12));
+#+end_src
+
+#+RESULTS:
+: 12
+
+** Implementación xor
+
+#+begin_src rust
+fn xor(x:bool, y:bool)-> bool {
+	match (x,y) {
+		(true, true)=>false,
+		(true, false)=>true,
+		(false,true)=>true,
+		(false,false)=>false
+	}
+}
+
+println!("{:?}", xor(true, true));
+println!("{:?}", xor(true, false));
+println!("{:?}", xor(false, false));
+#+end_src
+
+#+RESULTS:
+: false
+: true
+: false
+
+
+Por operación lógica
+
+#+begin_src rust
+let xor = |x,y| (x || y) && !(x && y);
+println!("{:?}", xor(true,true));
+println!("{:?}", xor(false,true));
+#+end_src
+
+#+RESULTS:
+: false
+: true
+
+
+Mediante desigualdad
+
+#+begin_src rust
+let xor = |x,y| x != y;
+println!("{:?}", xor(true,true));
+println!("{:?}", xor(true,false));
+#+end_src
+
+#+RESULTS:
+: false
+: true
+
+
+** Rotación de listas (array-vec)
+
+
+#+begin_src rust
+fn rotate<T:Clone>(array:&[T]) -> Vec<T> {
+	let first:Vec<T> = vec![array[0].clone()];
+	let tail:Vec<T> = array
+		.iter()
+		.enumerate()
+		.filter_map(|(i,v)| if i>0 {Some(v.clone())} else {None})
+		.collect();
+	[tail, first].concat()
+}
+println!("{:?}", rotate(&[1,2,3]));
+println!("{:?}", rotate(&[1.2,2.5,-3.8]));
+#+end_src
+
+#+RESULTS:
+: [2, 3, 1]
+: [2.5, -3.8, 1.2]
+
+
+** Rnago de lista
+
+#+begin_src rust
+fn rango<T:Ord + Clone>(valores:&[T])->[T;2] {
+	let min= valores.iter().min().unwrap();
+	let max = valores.iter().max().unwrap();
+	[min.clone(), max.clone()]
+}
+
+println!("{:?}", rango(&[-30,4,5,6,8]));
+//println!("{:?}", rango(&[-30.0,4.5,5.0,6.0,8.9]));
+#+end_src
+
+#+RESULTS:
+
+
+** Palindromo
+
+#+begin_src rust
+fn palindromo<I>(valores:I) -> bool 
+where
+I:IntoIterator,
+I::Item: PartialEq,
+I::IntoIter: DoubleEndedIterator
+{
+	let mut iter = valores.into_iter();
+	while let (Some(front), Some(back))=(iter.next(), iter.next_back()) {
+		if front!=back {
+			return false;
+		}
+	}
+	true
+}
+
+println!("Palindromo: {:?}",palindromo([5,2,3,2,5]));
+#+end_src
+
+#+RESULTS:
+: Palindromo: true
+
+
+Otra implementación.
+
+#+begin_src rust
+fn palindromo<T>(v:&[T]) ->bool
+where 
+T:Eq,
+{
+	v.iter().eq(v.iter().rev())
+}
+
+println!("Palindromo: {:?}",palindromo(&[5,2,3,2,5]));
+println!("Palindromo: {:?}",palindromo(&[7,2,3,6,5]));
+#+end_src
+
+#+RESULTS:
+: Palindromo: true
+: Palindromo: false
+
+
+- IntoIterator ::
+  https://doc.rust-lang.org/std/iter/trait.IntoIterator.html
+- DoubleEndedIterator ::
+  https://doc.rust-lang.org/std/iter/trait.DoubleEndedIterator.html 
+
+
+#+begin_src rust
+fn interior<T:Clone>(valores:&[T])->Vec<T> {
+	let len = valores.len();
+	valores[1..len-1].to_vec()
+}
+
+println!("Interior lista {:?}", interior(&[3,4,5,6]));
+#+end_src
+
+#+RESULTS:
+: Interior lista [4, 5]
+
+
+** Elementos finales de lista
+
+#+begin_src rust
+fn finales<T:Clone>(n:usize, valores:&[T])->Vec<T> {
+	if n<valores.len(){
+		let index = valores.len() - n;
+		return valores[index..].to_vec();
+	}
+	valores[0..].to_vec()
+}
+
+
+println!("finales lista {:?}", finales(3,&[3,4,5,6]));
+println!("finales lista {:?}", finales(9,&[3,4,5,6]));
+#+end_src
+
+#+RESULTS:
+: finales lista [4, 5, 6]
+: finales lista [3, 4, 5, 6]
+
+**  Segmentos de lista
+
+
+#+begin_src rust
+fn segmento<T:Clone>(n:usize, m:usize, valores:&[T]) -> Vec<T> {
+	if m<n {
+		let first = &valores[m..n];
+		return first.to_vec();
+	}
+	vec![]
+}
+
+println!("Segmento m=3  a  n=6 {:?}", segmento(6,3,&[4,5,2,3,1,7,9,34]));
+#+end_src
+
+#+RESULTS:
+: Segmento m=3  a  n=6 [3, 1, 7]
+
+** Area de triangulo formula herón
+
+Página 36.
+
+#+begin_src rust
+fn area_triangulo(a:f64,b:f64,c:f64)->f64 {
+	let s = (a+b+c)/2.0;
+	f64::sqrt( s * (s-a) * (s-b)* (s-c))
+}
+
+println!("Area triangulo {}", area_triangulo(1.0,2.3,1.8));
+#+end_src
+
+#+RESULTS:
+: Area triangulo 0.8608680212436746
+
+
+** Propiedad de los lados de un triangulo
+
+
+Verifica si los lados provistos como argumentos pueden construir un
+triangulo
+
+#+begin_src rust
+fn triangular(a:f64,b:f64,c:f64)->bool {
+	a <b+c && b < a + c && c < a+ b
+}
+
+println!("Test 3 4 5: {}", triangular(3.0,4.0,5.0));
+#+end_src
+
+#+RESULTS:
+: Test 3 4 5: true
+
+* Entregar rectángulo mayor
+
+#+begin_src rust
+fn mayor_rectangulo(r1:(f64,f64), r2:(f64,f64))->(f64,f64) {
+	let (a,b) = r1;
+	let (c,d) = r2;
+	if a*b>= c*d {
+		return (a,b);
+	} 
+	(c,d)
+}
+
+println!("Mayor rectangulo {:?}", mayor_rectangulo((3.0,4.0),(2.5,5.3)));
+#+end_src
+
+#+RESULTS:
+: Mayor rectangulo (2.5, 5.3)
+
+
+* Cuadrante
+
+#+begin_src rust
+fn cuadrante(x:f64,y:f64)->u8 {
+	match (x,y) {
+		(x,y) if x>0.0 && y>0.0 => 1,
+		(x,y) if x<0.0 && y>0.0 => 2,
+		(x,y) if x<0.0 && y<0.0 => 3,
+		(x,y) if x>0.0 && y<0.0 => 4,
+		_ => 0
+	}
+}
+
+println!("Cuadrante {}", cuadrante(0.0,0.0));
+#+end_src
+
+#+RESULTS:
+: Cuadrante 0
+
+
+** Intercambio coordenadas
+
+#+begin_src rust
+let intercambio = |x,y| (y,x);
+
+println!("Intercambio (3,4)->{:?}", intercambio(3,4));
+#+end_src
+
+#+RESULTS:
+: Intercambio (3,4)->(4, 3)
+
+** Punto Simétrico
+
+#+begin_src rust
+let simetrico = |x,y:i32| (x,-y);
+
+println!("SImetrico (3,4)->{:?}", simetrico(3,4));
+#+end_src
+
+#+RESULTS:
+: SImetrico (3,4)->(3, -4)
+
+
+** Distancia
+
+#+begin_src rust
+fn distancia(p1:(f64,f64), p2:(f64,f64)) -> f64 {
+f64::sqrt(f64::powf(p1.0-p2.0,2.0)+f64::powf(p1.0-p2.0,2.0))
+}
+
+println!("Distancia (4,5) a (8,9) => {}", distancia((4.0,5.0),(8.0,9.0)) )
+#+end_src
+
+#+RESULTS:
+: Distancia (4,5) a (8,9) => 5.656854249492381
+
+
+Otra forma, mediante el uso de un objeto 'punto'
+
+#+begin_src rust
+#[derive(Debug,Clone)]
+struct Punto {
+	x:f64, y:f64
+}
+
+impl Punto {
+	pub fn new(x:f64, y:f64) -> Self{
+		Self{ x,y }
+	}
+
+	pub fn distancia(&self, p:&Self)->f64 {
+		f64::sqrt(f64::powf(self.x-p.x,2.0)+f64::powf(self.y-p.y,2.0))
+	}
+}
+
+
+let p1 = Punto::new(4.0, 5.0);
+let p2 = Punto::new(8.0, 9.0);
+
+println!("Distancia (4,5) a (8,9) => {}", p1.distancia(&p2) )
+#+end_src
+
+#+RESULTS:
+: Distancia (4,5) a (8,9) => 5.656854249492381
+
+
+** Punto medio entre dos puntos
+
+#+begin_src rust
+use std::fmt;
+
+#[derive(Debug,Clone)]
+struct Punto {
+	x:f64, y:f64
+}
+
+impl Punto {
+	pub fn new(x:f64, y:f64) -> Self{
+		Self{ x,y }
+	}
+
+	// pub fn distancia(&self, p:&Self)->f64 {
+	// 	f64::sqrt(f64::powf(self.x-p.x,2.0)+f64::powf(self.y-p.y,2.0))
+	// }
+
+	pub fn punto_medio(&self, p:&Self)->Self {
+		let x_mid = (self.x+p.x)/2.0;
+		let y_mid = (self.y+p.y)/2.0;
+		Punto{x:x_mid, y:y_mid}
+	}
+
+}
+
+impl fmt::Display for Punto {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        // Write strictly the first element into the supplied output
+        // stream: `f`. Returns `fmt::Result` which indicates whether the
+        // operation succeeded or failed. Note that `write!` uses syntax which
+        // is very similar to `println!`.
+        write!(f, "({},{})", self.x, self.y)
+    }	
+}
+
+let p1 = Punto::new(4.0, 5.0);
+let p2 = Punto::new(8.0, 9.0);
+println!("Punto medio: {} y {} => {}", p1, p2 ,p1.punto_medio(&p2) )
+#+end_src
+
+#+RESULTS:
+: Punto medio: (4,5) y (8,9) => (6,7)
+
+** Numeros complejos
+
+#+begin_src rust
+//!```cargo
+//![dependencies]
+//!num = "0.4.0"
+//!```
+
+use num::complex::Complex;
+
+
+fn main() {
+    let complex_integer = Complex::new(10, 20);
+    let complex_float = Complex::new(10.1, 20.1);
+
+    println!("Complex integer: {}", complex_integer);
+    println!("Complex float: {}", complex_float);
+}
+#+end_src
+
+#+RESULTS:
+: Complex integer: 10+20i
+: Complex float: 10.1+20.1i
+
+
+
+Suma:
+
+#+begin_src rust
+//!```cargo
+//![dependencies]
+//!num = "0.4.0"
+//!```
+
+use num::complex::Complex;
+use num::Num;
+
+fn suma<T:Clone+Num>(a:&Complex<T>, b:&Complex<T>) -> Complex<T>{
+	a+b
+}
+
+fn main(){
+let a = Complex::new(10.9, -15.2);
+let b = Complex::new(10.1, 20.1);
+
+println!("Complex suma: {}", suma(&a,&b));
+}
+#+end_src
+
+#+RESULTS:
+: Complex suma: 21+4.900000000000002i
+
+
+Productos
+
+#+begin_src rust
+//!```cargo
+//![dependencies]
+//!num = "0.4.0"
+//!```
+
+use num::complex::Complex;
+use num::Num;
+
+fn producto<T:Clone+Num>(a:&Complex<T>, b:&Complex<T>) -> Complex<T>{
+	a*b
+}
+
+fn main(){
+let a = Complex::new(10.9, -15.2);
+let b = Complex::new(10.1, 20.1);
+
+println!("Complex suma: {}", producto(&a,&b));
+}
+#+end_src
+
+#+RESULTS:
+: Complex suma: 415.61+65.57000000000005i
+
+
+Conjugado de complejo
+
+
+#+begin_src rust
+//!```cargo
+//![dependencies]
+//!num = "0.4.0"
+//!```
+
+use num::complex::Complex;
+use num::Num;
+use core::ops::Neg;
+
+fn conjugado<T:Clone+Num+Neg<Output=T>>(a:&Complex<T>) -> Complex<T>{
+	a.conj()
+}
+
+fn main(){
+let a = Complex::new(10.9, 15.2);
+
+println!("Complex conjugado: {}", conjugado(&a));
+}
+#+end_src
+
+#+RESULTS:
+: Complex conjugado: 10.9-15.2i
+

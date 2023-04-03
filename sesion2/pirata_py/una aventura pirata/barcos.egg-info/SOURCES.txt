@@ -1,0 +1,7 @@
+setup.py
+barcos.egg-info/PKG-INFO
+barcos.egg-info/SOURCES.txt
+barcos.egg-info/dependency_links.txt
+barcos.egg-info/not-zip-safe
+barcos.egg-info/requires.txt
+barcos.egg-info/top_level.txt

@@ -1,0 +1,263 @@
+* Test rust on org-mode
+
+
+#+begin_src rust :results output
+fn main(){
+	println!("{}", 1+1);
+}
+#+end_src
+
+
+CRATE:: rust-script
+
+#+begin_src rust
+fn interior<T:Clone>(valores:&[T])->Vec<T> {
+	let len = valores.len();
+	valores[1..len-1].to_vec()
+}
+
+println!("Interior lista {:?}", interior(&[3,4,5,7,8,10,6]));
+#+end_src
+
+#+RESULTS:
+: Interior lista [4, 5, 7, 8, 10]
+
+
+
+** Elementos finales de lista
+
+#+begin_src rust
+fn finales<T:Clone>(n:usize, valores:&[T])->Vec<T>{
+	if n<valores.len() {
+		let index = valores.len() - n;
+		return valores[index..].to_vec();
+	}
+	valores[0..].to_vec()
+}
+
+println!("Finales {:?}", finales(2,&[1,2,3,4,5]));
+#+end_src
+
+#+RESULTS:
+: Finales [4, 5]
+
+
+** Segmentos de una lista
+
+
+#+begin_src rust
+fn segmento<T:Clone>(n:usize, m:usize, valores:&[T])->Vec<T>{
+	if m<n {
+		let first = &valores[(m-1)..n];
+		return first.to_vec();
+	}
+	vec![]
+}
+
+println!("Segmento m=3  a  n=6 {:?}", segmento(6,3,&[4,5,2,3,1,7,9,34]));
+#+end_src
+
+#+RESULTS:
+: Segmento m=3  a  n=6 [2, 3, 1, 7]
+
+
+#+begin_src bash
+echo 4,5,2,3,1,7,9,34 | awk -F',' '{print NF}'
+#+end_src
+
+#+RESULTS:
+: 8
+
+#+begin_src rust
+fn triangular(a:&f64, b:&f64, c:&f64)->bool {
+	*a <*b+*c && *b < *a + *c && *c < *a+ *b
+}
+
+
+fn area_triangulo(a:f64, b:f64, c:f64) -> Option<f64> {
+	if triangular(&a,&b,&c){
+		let s = (a+b+c)/2.0;
+		return Some(f64::sqrt(s*(s-a)*(s-b)*(s-c)));
+	}
+	None
+}
+
+println!("Area triangulo {:?}", area_triangulo(3.0,2.0,5.0));
+#+end_src
+
+#+RESULTS:
+: Area triangulo None
+
+
+** Tamaño de un 'vector'
+
+#+begin_src rust
+fn modulo_vector(x:f64, y:f64)->f64 {
+	let pow2 = |x| f64::powf(x,2.0);
+	f64::sqrt(pow2(x)+pow2(y))
+}
+
+println!("Modulo vector (3,4) -> {}",modulo_vector(3.0, 4.0) );
+#+end_src
+
+#+RESULTS:
+: Modulo vector (3,4) -> 5
+
+
+
+** Comparar rectangulo
+
+#+begin_src rust
+fn mayor_rectangulo(r1:(f64,f64),r2:(f64,f64))->(f64,f64) {
+	let (a,b) = r1;
+	let (c,d) = r2;
+	if (a*b)>= c*d {
+		return (a,b);
+	}
+	(c,d)
+}
+
+println!("Mayor rectangulo {:?}", mayor_rectangulo((3.0,4.0),(2.5,5.3)));
+#+end_src
+
+#+RESULTS:
+: Mayor rectangulo (2.5, 5.3)
+
+
+#+begin_src rust
+fn mayor_rectangulo(r1:(f64,f64),r2:(f64,f64))->(f64,f64) {
+	let (a,b) = r1;
+	let (c,d) = r2;
+	let a2 = c*d;
+	match a*b {
+		a1 if a1>= a2 => (a,b),
+		_ => (c,d)
+	}
+}
+
+println!("Mayor rectangulo {:?}", mayor_rectangulo((3.0,4.0),(2.5,5.3)));
+#+end_src
+
+#+RESULTS:
+: Mayor rectangulo (2.5, 5.3)
+
+
+** Cuadrante de un punto
+
+
+#+begin_src rust
+fn cuadrante(x:f64, y:f64)-> u8 {
+	match (x,y) {
+		(x,y) if x>0.0 && y>0.0 => 1,
+		(x,y) if x<0.0 && y>0.0 => 2,
+		(x,y) if x<0.0 && y<0.0 => 3,
+		(x,y) if x>0.0 && y<0.0 => 4,
+		_ => 0
+	}
+}
+
+
+println!("Cuadrante punto (0,0) {}", cuadrante(0.0,0.0));
+println!("Cuadrante punto (3,4) {}", cuadrante(3.0,4.0));
+println!("Cuadrante punto (-3,-4) {}", cuadrante(-3.0,-4.0));
+#+end_src
+
+#+RESULTS:
+: Cuadrante punto (0,0) 0
+: Cuadrante punto (3,4) 1
+: Cuadrante punto (-3,-4) 3
+
+
+** Distancia entre dos puntos
+
+#+begin_src rust
+fn distancia(p1:(f64,f64), p2:(f64,f64))->f64 {	
+	let pow2 = |a,b| f64::powf(a-b,2.0);
+	f64::sqrt(pow2(p1.0,p2.0)+pow2(p1.1,p2.1))
+}
+
+println!("Distancia (4,5) a (8,9) => {}", distancia((4.0,5.0),(8.0,9.0)) )
+#+end_src
+
+#+RESULTS:
+: Distancia (4,5) a (8,9) => 5.656854249492381
+
+
+
+#+begin_src rust
+#[derive(Debug,Clone)]
+struct Punto {
+	x:f64,
+	y:f64
+}
+
+impl Punto {
+	pub fn new(x:f64, y:f64) -> Self {
+		Self {x,y}
+	}
+
+	pub fn distancia(&self, p:&Self) -> f64 {
+		let pow2 = |a,b| f64::powf(a-b,2.0);
+		f64::sqrt(pow2(self.x,p.x)+pow2(self.y,p.y))
+	}
+
+}
+
+
+let p1 = Punto::new(4.0, 5.0);
+let p2 = Punto::new(8.0, 9.0);
+
+println!("Distancia (4,5) a (8,9) => {}", p1.distancia(&p2) );
+println!("Distancia (8,9) a (4,5) => {}", p2.distancia(&p1) );
+#+end_src
+
+#+RESULTS:
+: Distancia (4,5) a (8,9) => 5.656854249492381
+: Distancia (8,9) a (4,5) => 5.656854249492381
+
+
+** Punto medio entre dos puntos
+
+
+#+begin_src rust
+use std::fmt;
+
+#[derive(Debug,Clone)]
+struct Punto {
+	x:f64,
+	y:f64
+}
+
+impl Punto {
+	pub fn new(x:f64, y:f64) -> Self {
+		Self {x,y}
+	}
+
+	pub fn punto_medio(&self, p:&Self) -> Self {
+		let x_mid = (self.x + p.x) /2.0;
+		let y_mid = (self.y + p.y) /2.0;
+		//Punto {x:x_mid, y:y_mid}
+		//Self {x:x_mid, y:y_mid}
+		Self::new(x_mid, y_mid)
+	}
+}
+
+impl fmt::Display for Punto {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
+		write!(f,"Punto({},{})", self.x, self.y)
+	}
+}
+
+
+let p1 = Punto::new(4.0, 5.0);
+let p2 = Punto::new(8.0, 9.0);
+println!("Punto medio: {} y {} => {}", p1, p2 ,p1.punto_medio(&p2) )
+#+end_src
+
+#+RESULTS:
+: Punto medio: Punto(4,5) y Punto(8,9) => Punto(6,7)
+
+
+
+
+

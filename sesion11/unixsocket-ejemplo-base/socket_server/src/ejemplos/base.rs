@@ -1,0 +1,20 @@
+use async_std::prelude::*;
+use async_std::os::unix::net::UnixListener;
+
+#[async_std::main]
+async fn main() {
+	let socket_path = "/tm/rust.socket";
+	let listener = UnixListener::bind(socket_path).await.unwrap(); 
+	let mut incoming = listener.incoming();
+
+	while let Some(stream) = incoming.next().await {
+		match stream {
+			Ok(mut stream) => {
+				stream.write_all(b"Hola mundo socket").await.unwrap();
+			},
+			Err(err) => {
+				eprintln!("Error al conectar socket {:?}",err);
+			}
+		}
+	}
+}

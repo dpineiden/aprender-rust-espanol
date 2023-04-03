@@ -1,0 +1,48 @@
+                     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                      SIMPLE Y EJEMPLIFICADOR AWK
+                     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+Table of Contents
+─────────────────
+
+
+
+
+*uwk* es un comando que permite obtener ciertos campos de una línea de
+ texto, dado un /separador/.
+
+Opciones:
+
+-S
+      define un separador
+-F
+      define los campos a mostrar
+-R
+      mostrar numero de linea
+-T
+      mostrar total de campos
+-O
+      salida a archivo o stdout
+-I
+      mostrar info del archivo
+
+Ejemplos:
+
+Leer de solo un archivo:
+
+┌────
+│ cargo run -- -F" " -C1,2,3 } -R -T -I Cargo.toml 
+└────
+
+Leer de solo desde un *stream*:
+
+┌────
+│ cargo run -- -F" " -C1,2,3 -S < Cargo.toml>
+└────
+
+Leer de archivo y stream
+
+┌────
+│ cargo run -- -F";" -C1,2  -R Cargo.toml ../../../pirata/src/main.rs  -R -T -O -S<Cargo.toml 
+└────

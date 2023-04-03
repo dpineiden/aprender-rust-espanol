@@ -1,0 +1,399 @@
+#+PROPERTY: header-args:haskell :exports both :results output 
+
+* Test org-mode
+
+#+begin_src haskell
+1+1
+#+end_src
+
+#+RESULTS:
+: 2
+
+* Definiciones elementales
+
+
+** Media de 3
+
+#+begin_src haskell
+media3 x y z = (x+y+z)/3
+
+media3 1 2 3
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> 2.0
+
+** Suma de euros
+
+#+begin_src haskell
+sumaMonedas a b c d e = 1*a + 2*b + 5*c +10*d +20*e
+sumaMonedas 1 4 10 0 45
+#+end_src
+
+#+RESULTS:
+: 
+: 959
+
+
+** Volumen de esfera
+
+#+begin_src haskell
+volumenEsfera r = (4/3)*pi*r^3
+volumenEsfera 15
+#+end_src
+
+#+RESULTS:
+: 
+: 14137.166941154068
+
+
+** Área de corona circular
+
+#+begin_src haskell
+areaCoronaCircular  r1 r2 = pi *(r2^2-r1^2)
+areaCoronaCircular 3 5
+#+end_src
+
+#+RESULTS:
+: 
+: 50.26548245743669
+
+** Última cifra de un número
+
+Se usa  *rem* que es una función que entrega el resto de la división
+entera entre dos valores.
+
+#+begin_src haskell
+ultimaCifra x = rem x 10
+ultimaCifra 135
+#+end_src
+
+#+RESULTS:
+: 
+: 5
+
+
+** Máximo de 3 elementos
+
+#+begin_src haskell :results output
+maximTres x y z = max x (max y z)
+maximTres 3 2 12
+maximTres 3 2.5 45.5
+#+end_src
+
+#+RESULTS:
+: 
+: 12
+: 45.5
+
+** XOR
+Por pattern matching
+
+#+begin_src haskell :session xor1
+xor1 True True = False
+xor1 True False = True
+xor1 False True = True
+xor1 False False = False
+#+end_src
+
+#+RESULTS:
+
+#+begin_src haskell :session xor1
+xor1 True True
+#+end_src
+
+#+RESULTS:
+: *** Exception: <interactive>:43:1-24: Non-exhaustive patterns in function xor1
+
+
+
+Mediante relacio lógica
+
+#+begin_src haskell
+xor x y = (x||y) && not (x && y)
+xor True False
+xor True True
+#+end_src
+
+#+RESULTS:
+: 
+: True
+: False
+
+Mediante desigualdad.
+
+#+begin_src haskell
+xor x y = x /= y
+xor True False
+xor True True
+#+end_src
+
+#+RESULTS:
+: True
+: False
+
+
+** Rotación de listas
+
+#+begin_src haskell
+rota1 xs = tail xs ++ [head xs]
+
+rota1 [2,3,4,5,6]
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> [3,4,5,6,2]
+
+
+** Rango de lista
+
+Obtener minimo y maximo
+
+#+begin_src haskell
+rango xs = [minimum xs, maximum xs]
+rango [-30, 3,5,6,7.4]
+#+end_src
+
+#+RESULTS:
+: 
+: [-30.0,7.4]
+
+
+** Palindromo
+
+#+begin_src haskell
+palindromo xs = xs == reverse xs
+palindromo [3,2,4,2,3]
+#+end_src
+
+#+RESULTS:
+: 
+: True
+
+** Elementos interiores de lista
+
+#+begin_src haskell
+interior xs = tail (init xs)
+
+interior [3,4,5,8,9,6]
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> [4,5,8,9]
+
+
+#+begin_src haskell
+init [1,2,3]
+#+end_src
+
+#+RESULTS:
+: [1,2]
+
+
+#+begin_src haskell
+tail [1,2,3]
+#+end_src
+
+#+RESULTS:
+: [2,3]
+
+
+
+* N elementos finales de lista
+
+#+begin_src haskell
+finales n xs = drop (length xs - n) xs
+
+finales 3 [3,4,5,6]
+#+end_src
+
+#+RESULTS:
+
+
+#+begin_src haskell
+length [1,2,3] - 2
+#+end_src
+
+#+RESULTS:
+: 1
+
+
+#+begin_src haskell
+drop 1 [1,2,3]
+#+end_src
+
+#+RESULTS:
+: [2,3]
+
+
+** Segmentos de una lista
+
+#+begin_src haskell
+segmento n m xs = drop (m-1) (take n xs)
+
+segmento 6 3 [4,5,2,3,1,7,9,34]
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> [2,3,1,7]
+
+m:3
+n:4
+
+#+begin_src haskell
+take 2 [1,2,3,4,5,6,7,8]
+#+end_src
+
+#+RESULTS:
+: [1,2]
+
+#+begin_src haskell
+drop 2 (take 4 [1,2,3,4,5])
+#+end_src
+
+#+RESULTS:
+: [3,4]
+
+
+** Area del triangulo
+
+#+begin_src haskell
+:{
+area a b c = sqrt (s*(s-a)*(s-b)*(s-c))
+  where s = (a+b+c)/2
+:}
+
+area 3 4 5
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> 6.0
+
+
+** [#A] Propiedad de los lados de un triangulo
+
+Verifica si los lados provistos como argumentos pueden construir un
+triangulo
+
+#+begin_src haskell
+triangular a b c = a <b+c && b < a + c && c < a+ b
+
+triangular 3 2 5
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> False
+
+
+** Modulo de un vector
+
+#+begin_src haskell
+modulo (x,y) = sqrt(x^2+y^2)
+
+modulo (3,4)
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> 5.0
+
+** Entregar rectángulo mayor
+
+#+begin_src haskell
+:{
+mayorRectangulo (a,b) (c,d) 
+  | (a * b >= c*d) = (a,b)
+  | otherwise = (c,d)
+:}
+
+mayorRectangulo (1,2) (3,4)
+#+end_src
+
+#+RESULTS:
+: 
+: (3,4)
+
+
+** Cuadrante en que se ubica un punto
+
+
+#+begin_src haskell
+:{
+cuadrante (x,y)
+  | x>0 && y>0 = 1
+  | x<0 && y>0 = 2
+  | x<0 && y<0 = 3
+  | x>0 && y<0 = 4
+  | otherwise = 0
+:}
+
+cuadrante (0,0)
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> 0
+
+
+** Intercambio de coordenadas
+
+
+
+#+begin_src haskell
+intercambia (a,b) = (b,a)
+#+end_src
+
+
+** Punto simétrico
+
+#+begin_src haskell
+simetricoH (a,b) = (a,-b)
+#+end_src
+
+
+** Distancia entre dos puntos
+
+#+begin_src haskell
+distancia (x1,y1) (x,2,y2) = sqrt((x1-x2)^2+ (y1-y2)^2)
+#+end_src
+
+** Punto medio entre dos puntos
+
+#+begin_src haskell
+puntoMedio (a,b) (c,d) = ((a+c)/2,(b+d)/2)
+
+puntoMedio (-1,2) (7,6)
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> (3.0,4.0)
+
+
+** Números Complejos
+
+#+begin_src haskell
+sumaComplejos (a,b) (c,d) = (a+c,b+d)
+#+end_src
+
+#+begin_src haskell
+productoComplejos (a,b) (c,d) = (a*c-b*d,a*d+b*c)
+
+productoComplejos (10.9,-15.2) (10.1, 20.1)
+#+end_src
+
+#+RESULTS:
+: 
+: Prelude> (415.61,65.57000000000005)
+
+Conjugado de un complejo
+
+#+begin_src haskell
+conjugado (a,b) = (a,-b)
+#+end_src

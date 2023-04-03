@@ -1,0 +1,43 @@
+#+TITLE: Sesión 6 Taller de Rust
+
+* Expresiones regulares
+
+Formalmente se define un patrón en base a un /Lenguaje Regular/
+https://en.wikipedia.org/wiki/Regular_language
+
+En la práctica, es una herramienta para definir posibles secuencias en
+cadenas de texto.
+
+** Practicar
+
+https://thetypingoftheregex.com/
+https://betterprogramming.pub/animating-regular-expressions-with-python-and-graphviz-e0df447b827a
+
+Masterin Regular Expressions.
+https://sites.radford.edu/~nokie/classes/420/regExp.html
+
+** Definición
+** Declaración de una regex
+** Uso en match
+
+* Introducción a Genéricos
+
+https://doc.rust-lang.org/rust-by-example/trait.html
+
+
+** Motivación
+
+** Genéricos en Funciones
+
+** Uso de 'impl'
+
+** Uso de declaración
+
+** Uso de where
+
+** Combinación traits en un genérico
+
+
+Ejercicio: 
+
+https://www.iberdrola.com/sostenibilidad/clasificacion-reinos-biologicos-seres-vivos

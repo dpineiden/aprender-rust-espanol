@@ -1,0 +1,14 @@
+#+TITLE: Taller Rust, sesión 13
+
+
+* Conversión de enteros signed y unsigned.
+
+** Endianess
+
+Orden en que cpu coloca los bits
+
+** Conversión de enteros usigned
+
+Debemos chequear el *primer byte* de cada valor del array de bytes.
+
+

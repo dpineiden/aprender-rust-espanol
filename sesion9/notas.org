@@ -1,0 +1,20 @@
+#+TITLE: Sesión 9 Taller Rust
+
+* Temas
+
+** Funciones anónimas o closures
+
+Funciones o elementos de rust, que implemtan el trait 
+- *FnOnce*
+- *Fn*
+- *FnMut*
+
+
+** Multithreading, compartir información
+
+- levantar hilo
+- usar el builder
+- rescatar el nombre del hilo ok
+
+  1.- Canales
+  2.- Espacio Compartido -> Mutex -> lock/unlock

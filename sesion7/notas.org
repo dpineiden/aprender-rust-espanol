@@ -1,0 +1,3 @@
+Estructura cion de proyecto
+https://doc.rust-lang.org/std/rc/index.html
+

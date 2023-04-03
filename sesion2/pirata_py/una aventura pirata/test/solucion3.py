@@ -1,0 +1,25 @@
+from rich import print
+import sys
+import numpy as np
+from pathlib import Path
+import csv
+from barcos.una_dimension import distancia, tiempo, obtener_barcos, barco_ganador
+
+if __name__ == "__main__":
+    p0 = {"id":"Isla","x":3,"v":0}
+    path = Path(__file__).parent / "barcos.csv"
+    lista = obtener_barcos(path)
+    print("Puntos:")
+    [print(p) for p in lista]
+    print("Solución simple al problema del tesoro")
+    solucion_distancias = [distancia(p0,p) for p in lista]
+    [print(sd) for sd in solucion_distancias]
+    solucion_menor = min(solucion_distancias, key=lambda e: e[1])
+    sol = solucion_menor[1]
+    print(f"EL barco ubicado mas cerca es {solucion_menor}")
+    for elem in solucion_distancias:
+        if sol == elem[1]:
+            print(elem)
+    menor_tiempo = barco_ganador(lista,solucion_distancias)
+    print(f"El barco que demora menos es {menor_tiempo}")
+

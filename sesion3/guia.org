@@ -1,0 +1,47 @@
+#+TITLE: Sesión 3 Taller Rust
+
+* El enum Result y su integración en sistema
+
+Result<Ok, Err>
+
+La mayoría de las operaciones usuales en *rust* entregan un /Result/
+con dos posibles tipos valores:
+
+- Ok(T) :: valor con un resultado correcto
+- Err()  :: valor con un error en la llamada
+
+https://doc.rust-lang.org/std/result/
+
+* Gestión de Path y PathBuff
+
+El objeto Path permite hacer la gestión de directorios y archivos (muy
+parecido a como se usa con python)
+
+https://doc.rust-lang.org/std/path/struct.Path.html
+
+https://doc.rust-lang.org/std/path/struct.PathBuf.html
+
+* Argumentos de entrada y ambientes 
+
+** std::env
+
+https://doc.rust-lang.org/std/env/index.html
+
+https://doc.rust-lang.org/book/ch12-01-accepting-command-line-arguments.html
+
+** Uso de clap
+
+https://docs.rs/clap/latest/clap/
+
+
+* Lectura/escritura de archivos
+
+https://www.becomebetterprogrammer.com/rust-read-user-input-stdin/
+
+** Directo
+
+Se usa *fs*
+
+** csv
+
+https://docs.rs/csv/latest/csv/tutorial/
