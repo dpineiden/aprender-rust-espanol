@@ -1,0 +1,93 @@
+* Uso Tokio
+
+https://tokio.rs/tokio/tutorial
+
+* Variables de ambiente
+
+https://nunomaduro.com/load_environment_variables_from_dotenv_files_in_your_rust_program
+
+https://www.thorsten-hans.com/working-with-environment-variables-in-rust/
+
+https://glenngillen.com/learning-rust/environment-variables/
+
+
+* PostgreSQL
+
+- Crear usuario
+- Asignar permisos
+- Asignar LOGIN
+- Asignar password
+
+** Modelar una db
+
+Crear un modelo de ciudad/dia/tiempo
+
+- Crear DB
+- Crear Tabla(s)
+
+https://www.w3schools.com/sql/sql_foreignkey.asp
+
+#+begin_src sql
+CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (ID)
+); 
+#+end_src
+
+Con llave foranea
+
+#+begin_src sql
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+); 
+#+end_src
+
+Escquema 
+
+#+begin_src sql
+
+CREATE TABLE ciudad
+(
+ "id"     serial NOT NULL,
+ pais   varchar(50) NOT NULL,
+ nombre varchar(50) NOT NULL,
+ CONSTRAINT PK_1 PRIMARY KEY ( "id", pais, nombre )
+);
+
+
+CREATE TABLE temperatura
+(
+ "id"          bigserial NOT NULL,
+ temperatura double precision NOT NULL,
+ fecha       date NOT NULL,
+ ciudad_id   int NOT NULL,
+ pais        varchar(50) NOT NULL,
+ nombre      varchar(50) NOT NULL,
+ CONSTRAINT PK_2 PRIMARY KEY ( "id", temperatura, fecha ),
+ CONSTRAINT FK_3 FOREIGN KEY ( ciudad_id, pais, nombre ) REFERENCES ciudad ( "id", pais, nombre )
+);
+
+CREATE INDEX FK_3 ON temperatura
+(
+ ciudad_id,
+ pais,
+ nombre
+);
+
+
+#+end_src
+
+
+
+
+* Uso SQLX
+
+https://github.com/launchbadge/sqlx
+
