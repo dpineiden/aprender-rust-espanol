@@ -84,6 +84,13 @@ CREATE INDEX FK_3 ON temperatura
 
 #+end_src
 
+** Join simple
+
+Obtener temperaturas con nombre de ciudad.
+
+#+begin_src sql
+select (fecha, temperatura, ciudad.nombre) from temperatura inner join ciudad on ciudad.id=ciudad_id;
+#+end_src
 
 
 
@@ -91,3 +98,11 @@ CREATE INDEX FK_3 ON temperatura
 
 https://github.com/launchbadge/sqlx
 
+Ver:
+- features
+
+https://docs.rs/crate/sqlx-core/0.6.3/features
+
+- Tabla de tipos
+
+https://docs.rs/sqlx/latest/sqlx/postgres/types/index.html

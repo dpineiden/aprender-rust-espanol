@@ -1,0 +1,169 @@
+#+TITLE: Databases con Rust, crate SQLx
+
+* Verificamos nuestras tablas de la db.
+
+- ciudad
+- temperatura
+
+Borrar database:
+
+#+begin_src sql
+drop database test_rust;
+#+end_src
+
+Crear database
+
+#+begin_src sql
+create database test_rust;
+#+end_src
+
+
+La primera tabla es independiente.
+
+#+begin_src sql
+create table ciudad (
+	   id serial primary key,
+	   pais varchar(50) not null,
+	   nombre varchar(50) not null
+);
+#+end_src
+
+¿Se pueden definir restricciones adicionales en esta tabla?
+
+#+begin_src sql
+alter table ciudad  add unique (pais, nombre);
+#+end_src
+
+La segunda tabla tiene una llave foránea a 'ciudad'.
+
+#+begin_src sql
+create table temperatura (
+	   id serial primary key,
+	   ciudad_id serial not null,
+	   fecha date not null,
+	   temperatura double precision not null,
+	   constraint fk_ciudad foreign key (ciudad_id) references ciudad (id)
+);
+#+end_src
+
+De la misma manera, una restricción adicional sería ciudad-fecha para
+cada dato en tabla temperatura.
+
+#+begin_src sql
+alter table temperatura add unique (ciudad_id, fecha);
+#+end_src
+
+
+Para crear nuevos datos en cada tabla
+
+Para ciudad:
+
+#+begin_src sql
+insert into ciudad (pais,nombre)
+values ('Chile','Puerto Montt');
+#+end_src
+
+Para temperatura:
+
+#+begin_src sql
+insert into temperatura (ciudad_id, fecha, temperatura)
+values (1,to_date('15/04/2023','dd/mm/yyyy'),15.4);
+#+end_src
+
+Formato de fecha:
+https://www.geeksforgeeks.org/how-to-specify-a-date-format-on-creating-a-table-and-fill-it-in-sql/
+
+
+** Como cargar un *csv* de datos a una tabla.
+
+#+begin_src bash :export results
+awk -F"," '(NR>1){
+	pais=$1;
+	ciudad=$2;
+	comando="insert into ciudad (pais,nombre) values (\047"$1"\047,\047"$2"\047);";
+	print(comando)
+}' ciudades.csv | PGPASSWORD=oxido psql -U rust -d test_rust
+#+end_src
+
+#+RESULTS:
+| INSERT | 0 | 1 |
+| INSERT | 0 | 1 |
+| INSERT | 0 | 1 |
+| INSERT | 0 | 1 |
+| INSERT | 0 | 1 |
+| INSERT | 0 | 1 |
+| INSERT | 0 | 1 |
+
+
+Ahora, para insertar los valores en tabla *temperatura, tendremos
+cuidado de identificar que el nombre de ciudad debe ser un id (número)
+
+
+#+begin_src sql
+#+end_src
+
+
+Primero vemos la obtención de los id por ciudad.
+
+#+begin_src bash :results output
+PGPASSWORD=oxido psql -t -U rust -d test_rust  <<EOF >> ciudades_id.csv
+select * from ciudad
+EOF 
+#+end_src
+
+#+RESULTS:
+
+Tenemos un nuevo archivo
+
+#+begin_src bash :results output
+cat ciudades_id.csv
+#+end_src
+
+#+RESULTS:
+:   1 | Chile     | Puerto Montt
+:   2 | Chile     | Santiago
+:   3 | Argentina | Buenos Aires
+:   4 | Perú      | Lima
+:   5 | Chile     | Valparaíso
+:   6 | Argentina | Mendoza
+:   7 | México    | Ciudad de México
+:   8 | Colombia  | Bogotá
+: 
+
+Ahora cargamos con el id de cada ciudad.
+
+#+begin_src bash :results output
+awk -F'|' '(NR==FNR){if (length($1)>0){gsub(/^[ \t]+|[ \t]+$/, "",$3);ciudades[$3]=$1};next}{FS=",";temps[$1][$2]=$3}END{
+# for (ciudad in ciudades){
+# 	print "City ", ciudad, ciudades[ciudad], ciudad in temps
+# }
+
+for (ciudad in temps){
+	for (fecha in temps[ciudad]){
+		val = ciudades[ciudad];
+		if (length(fecha)>0){
+		comando = "insert into temperatura (ciudad_id, fecha, temperatura)values ("val",to_date(\047"fecha"\047,\047dd/mm/yyyy\047),"temps[ciudad][fecha]");"
+		print comando
+		}
+	}
+	}
+}' ciudades_id.csv temperaturas.csv | PGPASSWORD=oxido psql -U rust -d test_rust
+#+end_src
+
+#+RESULTS:
+#+begin_example
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+#+end_example
