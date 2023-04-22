@@ -14,4 +14,6 @@ creamos las estructuras adecuadas para activar la transformación del
 dato desde db a rust. Mostramos los datos y los interrelacionamos.
 
 
+#database #data #rust #sql #awk #emacs #software #programacion #postgresql
+
 https://gitlab.com/rust-espanol/aprender-rust-en-espanol/-/tree/master/sesion18
