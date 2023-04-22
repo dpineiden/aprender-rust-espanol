@@ -1,0 +1,17 @@
+18 Taller de Rust
+
+22 abril 2023
+
+En esta sesión aprendemos a manejar las acciones básicas en base de
+datos.
+- Crear y eliminar db
+- Crear tablas en db
+- Añadir datos a tablas
+Buscamos la forma de cargar muchos datos desde archivos *csv* y los
+cargamos directamente la base de datos.
+Utilizando rust y sqlx, vemos como hacemos una consulta a las tablas,
+creamos las estructuras adecuadas para activar la transformación del
+dato desde db a rust. Mostramos los datos y los interrelacionamos.
+
+
+https://gitlab.com/rust-espanol/aprender-rust-en-espanol/-/tree/master/sesion18

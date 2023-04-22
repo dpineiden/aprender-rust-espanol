@@ -1,4 +1,5 @@
-#+TITLE: Databases con Rust, crate SQLx
+#+TITLE: Guia y propuestas.
+
 
 * Verificamos nuestras tablas de la db.
 
@@ -226,26 +227,6 @@ awk -F'|' '(NR==FNR){
 #+end_src
 
 #+RESULTS:
-#+begin_example
-insert into temperatura (ciudad_id, fecha, temperatura)values (3,to_date('12/04/2023','dd/mm/yyyy'),10.3);
-insert into temperatura (ciudad_id, fecha, temperatura)values (3,to_date('11/04/2023','dd/mm/yyyy'),9.8);
-insert into temperatura (ciudad_id, fecha, temperatura)values (3,to_date('10/04/2023','dd/mm/yyyy'),10.4);
-insert into temperatura (ciudad_id, fecha, temperatura)values (5,to_date('11/04/2023','dd/mm/yyyy'),12.4);
-insert into temperatura (ciudad_id, fecha, temperatura)values (5,to_date('10/04/2023','dd/mm/yyyy'),10.1);
-insert into temperatura (ciudad_id, fecha, temperatura)values (4,to_date('12/04/2023','dd/mm/yyyy'),13.8);
-insert into temperatura (ciudad_id, fecha, temperatura)values (4,to_date('11/04/2023','dd/mm/yyyy'),14.2);
-insert into temperatura (ciudad_id, fecha, temperatura)values (4,to_date('10/04/2023','dd/mm/yyyy'),15.3);
-insert into temperatura (ciudad_id, fecha, temperatura)values (10,to_date('14/04/2023','dd/mm/yyyy'),21.0);
-insert into temperatura (ciudad_id, fecha, temperatura)values (10,to_date('13/04/2023','dd/mm/yyyy'),20.0);
-insert into temperatura (ciudad_id, fecha, temperatura)values (10,to_date('16/04/2023','dd/mm/yyyy'),26.0);
-insert into temperatura (ciudad_id, fecha, temperatura)values (10,to_date('15/04/2023','dd/mm/yyyy'),22.0);
-insert into temperatura (ciudad_id, fecha, temperatura)values (8,to_date('11/04/2023','dd/mm/yyyy'),16.3);
-insert into temperatura (ciudad_id, fecha, temperatura)values (8,to_date('10/04/2023','dd/mm/yyyy'),18.2);
-insert into temperatura (ciudad_id, fecha, temperatura)values (2,to_date('13/04/2023','dd/mm/yyyy'),15.0);
-insert into temperatura (ciudad_id, fecha, temperatura)values (2,to_date('12/04/2023','dd/mm/yyyy'),15.1);
-insert into temperatura (ciudad_id, fecha, temperatura)values (2,to_date('11/04/2023','dd/mm/yyyy'),13.4);
-insert into temperatura (ciudad_id, fecha, temperatura)values (2,to_date('10/04/2023','dd/mm/yyyy'),12.3);
-#+end_example
 
 
 
@@ -284,3 +265,12 @@ INSERT 0 1
 INSERT 0 1
 INSERT 0 1
 #+end_example
+
+* Propuestas de ejercicios (Tarea)
+
+- crear comando para tener temperaturas
+- que tenga un filtro por ciudad
+- que tenga un filtro por fecha 'desde'
+
+- comando para cargar datos a db, teniendo la ruta a csv.
+- leer csv, cargar los datos a db creando los sql y ejecutando con sqlx.
