@@ -1,6 +1,6 @@
 #+TITLE: Databases con SQLx y Postgres II
 
-- URL Youtube :: 
+- URL Youtube :: https://www.youtube.com/watch?v=h8KB1iHez_8
 
 Esta sesión del *Taller de Rust* trata de trabajar con el lenguaje,
 creando consultas sql a la database *postgres*. Mejoramos las
@@ -10,6 +10,8 @@ compleja. Aprendemos a usar el crate *clap* para facilitar el uso de
 argumentos en línea de comando. Finalizamos con la implementación del
 sistema de migraciones, que permiten gestionar la creación de la
 estructura de database.
+
+- URL Youtube :: https://www.youtube.com/watch?v=h8KB1iHez_8
 
 #rust #programacion #database #sqlx #postgres #migration
 

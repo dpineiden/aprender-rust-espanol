@@ -4,12 +4,21 @@ use sqlx::Postgres;
 use sqlx::Pool;
 use dotenv;
 use std::env;
-use test_db2::api::ciudad::{Ciudad,get_ciudades,get_city};
 use test_db2::api::temperatura::{Temperatura,get_temperaturas};
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Options {
+	#[arg(short, long)]
+	ciudad:Option<String>
+}
 
 
 #[tokio::main]
 async fn main() -> Result<(), sqlx::Error> {
+	let args = Options::parse();
+
 	dotenv::dotenv().ok();
 	let key = "DATABASE_URL";
 	let url_db = env::var(key).unwrap();
@@ -25,13 +34,10 @@ async fn main() -> Result<(), sqlx::Error> {
 
 	// obtener las ciudades
 	// select * from ciudad;
-	let ciudades = get_ciudades(&pool).await;
-	let temperaturas = get_temperaturas(&pool).await;
+	let temperaturas = get_temperaturas(&pool, &args.ciudad).await;
 
 	for t in temperaturas.iter() {
-		println!("{:?} -> {:?}", 
-				 t, 
-				 get_city(&ciudades, t.ciudad_id).unwrap().nombre);
+		println!("{:?}", t);
 	}
 
 	Ok(())
