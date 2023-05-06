@@ -1,0 +1,68 @@
+https://betterprogramming.pub/how-to-interact-with-postgresql-from-rust-using-sqlx-cfa2a7c758e7
+
+
+#+begin_src rust
+let mut tx = pool.begin().await.expect("Unable to begin transaction");
+
+let inserted_domain = sqlx::query_as!(
+  Domain,
+  "insert into domains(name) values ($1) returning *",
+  "your.domain.com"
+)
+  .fetch_one(&mut tx)
+  .await.expect("Unable to insert a domain");
+
+let inserted_short_url = sqlx::query_as!(
+  ShortUrl,
+  "insert into short_urls(domain_id, short, long) values ($1, $2, $3) returning *",
+  inserted_domain.id, "short1", "long1"
+)
+  .fetch_one(&mut tx)
+  .await.expect("Unable to insert a short url");
+
+
+tx.commit()
+  .await.expect("Unable to commit the transaction");
+#+end_src
+
+* Uso de tracing
+
+* Propuestas de ejercicios 
+
+Propuestas de ejercicios (Tarea)
+
+- [x] crear comando para tener temperaturas
+- [x] que tenga un filtro por ciudad
+- [] que tenga un filtro por fecha 'desde'
+- [] comando para cargar datos a db, teniendo la ruta a csv.
+- [] leer csv, cargar los datos a db creando los sql y ejecutando con
+  sqlx.
+
+* filtrar por fecha
+
+Tenemos que para insertar un nuevo dato, entregamos la fecha con el
+formato.
+
+#+begin_src sql
+insert into temperatura (ciudad_id, fecha, temperatura)
+values (1,to_date('15/04/2023','dd/mm/yyyy'),15.4);
+#+end_src
+
+https://www.postgresqltutorial.com/postgresql-date-functions/postgresql-to_date/
+
+¿Cómo sería una consulta entre f0 y f1?
+
+* Hacer un insert
+
+** Insertar un dato, fn
+** Leer un csv y cargar datos
+** Hacer comando
+
+* Hacer un test
+
+** En mismo archivo
+** En modulo tests
+
+* Crear un comando para insertar datos
+** Uno a uno
+** Abrir transaction
