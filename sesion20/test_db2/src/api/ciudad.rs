@@ -1,6 +1,12 @@
 use sqlx::Postgres;
 use sqlx::Pool;
-use std::collections::HashMap;
+
+use std::{
+	collections::HashMap,
+	path::{Path,PathBuf},
+	fs::File,
+	error::Error
+};
 
 #[derive(Debug,Clone,sqlx::FromRow)]
 pub struct Ciudad {
@@ -9,7 +15,39 @@ pub struct Ciudad {
 	pub pais: String
 }
 
+#[derive(Debug,Clone,serde::Deserialize)]
+pub struct CiudadRow {
+	pub nombre: String,
+	pub pais: String
+}
 
+pub async fn read_csv_cities(
+	pool: &Pool<Postgres>,
+	path:&PathBuf) ->Result<(),Box<dyn Error>>{
+	let file = File::open(path)?;
+    let mut rdr = csv::Reader::from_reader(file);
+	for result in rdr.deserialize() {
+		let record:CiudadRow = result?;
+		insert_city(pool, &record).await;
+	}
+	Ok(())
+}
+
+
+pub async fn insert_city(
+	pool: &Pool<Postgres>,
+	ciudad: &CiudadRow
+){
+	let query = format!("insert into ciudad (pais, nombre) values ('{0}','{1}');", ciudad.pais, ciudad.nombre);
+	match sqlx::query(&query).execute(pool).await {
+		Ok(result)=>{
+			println!("Resultado de insert {:?}", &result);
+		},
+		Err(err)=>{
+			eprintln!("Error al cargar el dato {:?}", err);
+		}
+	};
+}
 
 pub async fn get_ciudades(
 	pool:&Pool<Postgres>,
@@ -48,3 +86,7 @@ pub fn get_city(cities:&Vec<Ciudad>, id:i32) -> Option<Ciudad> {
 	}
 	None
 }
+
+
+
+
