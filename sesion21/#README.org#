@@ -71,6 +71,13 @@ find -iname "*.rs"|grep -E "(src|tests)"|xargs grep "ejemplo_db2"
 #+end_src
 
 #+RESULTS:
+: ./tests/api/ciudad.rs:use ejemplo_db2::api::ciudad::{Ciudad,
+: ./src/main.rs:use ejemplo_db2::api::ciudad::{Ciudad,get_ciudades,get_city};
+: ./src/main.rs:use ejemplo_db2::api::temperatura::{Temperatura,get_temperaturas};
+: ./src/bin/load_fixtures.rs:use ejemplo_db2::api::ciudad::{Ciudad,read_csv_cities, get_ciudades};
+: ./src/bin/load_fixtures.rs:use ejemplo_db2::api::temperatura::{read_csv_temperatura};
+: ./src/bin/read_temperature.rs:use ejemplo_db2::api::temperatura::{Temperatura,get_temperaturas};
+: ./src/bin/read_cities.rs:use ejemplo_db2::api::ciudad::{Ciudad,get_ciudades,get_city};
 
 
 

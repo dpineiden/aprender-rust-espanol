@@ -2,6 +2,7 @@ use sqlx::types::chrono::NaiveDate;
 use sqlx::Postgres;
 use sqlx::Pool;
 use crate::api::ciudad::Ciudad;
+use tracing::{info,error,debug};
 
 use std::{
 	collections::HashMap,
@@ -27,20 +28,39 @@ pub struct TemperaturaRow {
 	pub ciudad: String
 }
 
+/*
+Ejercicio: hacer read_csv como un generic con T 
+en
+tool.rs
+*/
+#[tracing::instrument]
 pub async fn read_csv_temperatura(
 	pool: &Pool<Postgres>,
 	ciudades:&HashMap<i32, Ciudad>,
-	path:&PathBuf) ->Result<(),Box<dyn Error>>{
-	let file = File::open(path)?;
-    let mut rdr = csv::Reader::from_reader(file);
-	for result in rdr.deserialize() {
-		let record:TemperaturaRow = result?;
-		insert_temperatura(pool, ciudades, &record).await;
+	path:&PathBuf) ->Result<(),String>{
+
+	if path.exists(){
+		let file = File::open(path).unwrap();
+		let mut rdr = csv::Reader::from_reader(file);
+		for result in rdr.deserialize::<TemperaturaRow>() {
+			match result {
+				Ok(record)=>{
+					insert_temperatura(pool, ciudades, &record).await;
+				},
+				Err(err) => {
+					error!("{}", err.to_string());
+				}
+			};
+		}
+	} else {
+		error!("Path cannot be found {:?}", path);
+		return Err("Path cannot be found".into())
 	}
 	Ok(())
 }
 
 
+#[tracing::instrument]
 fn get_ciudad_id(
 	ciudades:&HashMap<i32,	Ciudad>,
 	nombre:&String)->Option<i32> {
@@ -55,6 +75,7 @@ fn get_ciudad_id(
 	None
 }
 
+#[tracing::instrument]
 pub async fn insert_temperatura(
 	pool: &Pool<Postgres>,
 	ciudades:&HashMap<i32, Ciudad>,
@@ -71,21 +92,22 @@ pub async fn insert_temperatura(
 								ciudad_id);
 			match sqlx::query(&query).execute(pool).await {
 				Ok(result)=>{
-					println!("Resultado de insert {:?}", &result);
+					info!("Resultado de insert {:?}", &result);
 				},
 				Err(err)=>{
-					eprintln!("Error al cargar el dato {:?}", err);
+					error!("Error al cargar el dato {:?}", err);
 				}
 			};
 		}
 		None=>{
-			eprintln!("Error, la ciudad para esta temperatura no existe");
+			error!("Error, la ciudad para esta temperatura no existe");
 		}
 	}
 }
 
 
 
+#[tracing::instrument]
 pub async fn get_temperaturas(
 	pool:&Pool<Postgres>, 
 	ciudad:&Option<String>)->Vec<Temperatura> {
@@ -96,7 +118,7 @@ pub async fn get_temperaturas(
 				"select * from temperatura join ciudad on
 		ciudad.id=temperatura.ciudad_id where upper(ciudad.nombre)
 		LIKE upper('{nombre}');");
-			println!("Consultando con ciudad_ {}", &query);
+			info!("Consultando con ciudad_ {}", &query);
 
 			let temperaturas = sqlx::query_as::<_,Temperatura>(
 				&query)

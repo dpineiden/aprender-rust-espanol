@@ -4,8 +4,8 @@ use sqlx::Postgres;
 use sqlx::Pool;
 use dotenv;
 use std::env;
-use test_db2::api::ciudad::{Ciudad,get_ciudades,get_city};
-use test_db2::api::temperatura::{Temperatura,get_temperaturas};
+use ejemplo_db2::api::ciudad::{Ciudad,get_ciudades,get_city};
+use ejemplo_db2::api::temperatura::{Temperatura,get_temperaturas};
 
 
 #[tokio::main]
