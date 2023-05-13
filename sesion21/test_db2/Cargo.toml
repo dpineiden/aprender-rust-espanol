@@ -1,0 +1,30 @@
+[package]
+name = "test_db2"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "0.4.24"
+clap = { version = "4.2.5", features = ["derive"] }
+csv = "1.2.1"
+dotenv = "0.15.0"
+futures = "0.3.28"
+serde = { version = "1.0.162", features = ["derive"] }
+sqlx = { version = "0.6.3", features =["runtime-tokio-native-tls","postgres", "all-types"] }
+tokio = { version = "1.27.0", features = ["full"] }
+
+
+[[bin]]
+name =  "read-cities"
+path = "src/bin/read_cities.rs"
+
+[[bin]]
+name =  "read-temperature"
+path = "src/bin/read_temperature.rs"
+
+[[bin]]
+name = "load-fixtures"
+path = "src/bin/load_fixtures.rs"
+

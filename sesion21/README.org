@@ -1,0 +1,89 @@
+#+TITLE: Sesión 21
+
+* Cambio de nombre del proyecto
+
+test_db2 -> ejemplo_db2
+
+* Logging y tracing
+
+Implementar tracing
+
+- span
+- event
+
+Trait Subscription
+
+
+* Update tables
+
+#+begin_src sql
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition; 
+#+end_src
+
+
+En rust
+
+#+begin_src rust
+let updated_domains = sqlx::query_as!(
+  Domain,
+  "update domains set name = 'my-2.domain.com' where id = $1 returning *",
+  1i64
+)
+  .fetch_all(&pool)
+  .await.expect("Unable to update a domain");
+#+end_src
+
+** Actualizar ciudad
+
+** Actualizar temperatura
+
+* Borrar
+
+#+begin_src sql
+DELETE FROM table_name WHERE condition;
+#+end_src
+
+#+begin_src rust
+let deleted_domains = sqlx::query_as!(
+  Domain,
+  "delete from domains where id = $1 returning *",
+  1i64
+)
+  .fetch_all(&pool)
+  .await.expect("Unable to delete domains");
+#+end_src
+
+* Test
+
+Revisar test
+
+* Transacciones
+
+https://betterprogramming.pub/how-to-interact-with-postgresql-from-rust-using-sqlx-cfa2a7c758e7
+
+
+#+begin_src rust
+let mut tx = pool.begin().await.expect("Unable to begin transaction");
+
+let inserted_domain = sqlx::query_as!(
+  Domain,
+  "insert into domains(name) values ($1) returning *",
+  "your.domain.com"
+)
+  .fetch_one(&mut tx)
+  .await.expect("Unable to insert a domain");
+
+let inserted_short_url = sqlx::query_as!(
+  ShortUrl,
+  "insert into short_urls(domain_id, short, long) values ($1, $2, $3) returning *",
+  inserted_domain.id, "short1", "long1"
+)
+  .fetch_one(&mut tx)
+  .await.expect("Unable to insert a short url");
+
+
+tx.commit()
+  .await.expect("Unable to commit the transaction");
+#+end_src
