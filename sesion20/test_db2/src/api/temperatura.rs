@@ -5,7 +5,7 @@ use crate::api::ciudad::Ciudad;
 
 use std::{
 	collections::HashMap,
-	path::{Path,PathBuf},
+	path::{PathBuf},
 	fs::File,
 	error::Error
 };

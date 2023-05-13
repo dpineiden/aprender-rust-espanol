@@ -1,13 +1,13 @@
-use sqlx::postgres::PgPoolOptions;
+
 use sqlx::Postgres;
 use sqlx::Pool;
-use test_db2::api::ciudad::{Ciudad,read_csv_cities, get_ciudades,
+use test_db2::api::ciudad::{Ciudad,
 							insert_city, CiudadRow};
 
 //type PgPool = Pool<Postgres>;
 
 #[sqlx::test]
-async fn basic_test(pool: Pool<Postgres>) -> sqlx::Result<()> {
+async fn basic_test(_pool: Pool<Postgres>) -> sqlx::Result<()> {
     //let mut conn = pool.acquire().await?;
     assert_eq!(1, 1);    
     Ok(())

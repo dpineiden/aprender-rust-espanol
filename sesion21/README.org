@@ -1,5 +1,21 @@
 #+TITLE: Sesión 21
 
+* Resumen
+
+En esta sesión 21 del taller de Rust se realizó lo siguiente:
+
+Se continúa con el trabajo de SQLx (base de datos en rust) con
+postgres, implementado herramientas para apoyo al desarrollo y
+monitoreo de una aplicación. Además de profundizar en la creación de
+la API para conectarse a base de datos bajo diferentes acciones.
+
+- cambio de nombre del proyecto
+- introducción de logging con tracing y monitoreo de eventos
+- creación de test e implementación de funciones para 'delete' o
+  borrar datos
+- ejercicios propuestos.
+
+
 * Cambio de nombre del proyecto
 
 test_db2 -> ejemplo_db2
@@ -71,6 +87,13 @@ find -iname "*.rs"|grep -E "(src|tests)"|xargs grep "ejemplo_db2"
 #+end_src
 
 #+RESULTS:
+: ./tests/api/ciudad.rs:use ejemplo_db2::api::ciudad::{Ciudad,
+: ./src/main.rs:use ejemplo_db2::api::ciudad::{Ciudad,get_ciudades,get_city};
+: ./src/main.rs:use ejemplo_db2::api::temperatura::{Temperatura,get_temperaturas};
+: ./src/bin/load_fixtures.rs:use ejemplo_db2::api::ciudad::{Ciudad,read_csv_cities, get_ciudades};
+: ./src/bin/load_fixtures.rs:use ejemplo_db2::api::temperatura::{read_csv_temperatura};
+: ./src/bin/read_temperature.rs:use ejemplo_db2::api::temperatura::{Temperatura,get_temperaturas};
+: ./src/bin/read_cities.rs:use ejemplo_db2::api::ciudad::{Ciudad,get_ciudades,get_city};
 
 
 
