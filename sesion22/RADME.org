@@ -1,0 +1,177 @@
+#+TITLE: Sesión 21 Taller de Rust, macros
+
+* Introducción
+
+Entre los elementos de utilidad que provee el lenguaje *rust* es la
+posibilidad de activar macros que construyen código en base  los
+parámetros de entrada, permitiendo crear diferentes variantes en
+proceso de compilación.
+
+Existen tres tipos de macros
+
+- macros que se usan como funciones
+- macros para habilitar derive de un trait
+- macros que se usan como atributo decorador a funciones
+
+Las macros procedurales se deben habilitar 'avisando' en Cargo.toml
+que las considere
+
+#+begin_src toml 
+[lib]
+proc-macro = true
+#+end_src
+
+* crates de interes
+
+- proc_macro
+- syn
+- quote
+
+** metavariables de macros
+
+https://doc.rust-lang.org/reference/macros-by-example.html
+
+* Procmacro
+
+Este crate provee la activación de los diferentes tipos de macros,
+declara un tipo especial *TokenStream* que sea asocia al *ast*
+
+Es parte de la *std*  y cada macro tiene un tipo de atributo asociado:
+
+- #[proc_macro] :: tipo funcional
+- #[proc_macro_attribute] :: tipo decorador
+- #[proc_macro_derive] :: tipo derive trait
+
+** quote 
+
+https://docs.rs/quote/latest/quote/
+
+Permite convertir ast en tokens de código fuente. Recibe un
+TokenStream y va reemplazando los imputs
+
+#+begin_src rust
+let tokens = quote! {
+    struct SerializeWith #generics #where_clause {
+        value: &'a #field_ty,
+        phantom: core::marker::PhantomData<#item_ty>,
+    }
+
+    impl #generics serde::Serialize for SerializeWith #generics #where_clause {
+        fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            #path(self.value, serializer)
+        }
+    }
+
+    SerializeWith {
+        value: #value,
+        phantom: core::marker::PhantomData::<#item_ty>,
+    }
+};
+#+end_src
+
+* Análisis de árbol sintáctico. (AST)
+
+Una de las características de las que se vale la creación de macros es
+el uso del *ast*. Es posible observar el árbol de tokens de un código
+rust usando *syn::File*.
+
+https://docs.rs/syn/latest/syn/struct.File.html
+
+Ejercicio::
+
+- Crear un proyecto
+- Tenga un archivo con strucst y funciones
+- leer el archivo y mostrar la estructura
+
+
+#+begin_src rust
+use std::env;
+use std::fs::File;
+use std::io::Read;
+use std::process;
+
+fn main() {
+    let mut args = env::args();
+    let _ = args.next(); // executable name
+
+    let filename = match (args.next(), args.next()) {
+        (Some(filename), None) => filename,
+        _ => {
+            eprintln!("Usage: dump-syntax path/to/filename.rs");
+            process::exit(1);
+        }
+    };
+
+    let mut file = File::open(&filename).expect("Unable to open file");
+
+    let mut src = String::new();
+    file.read_to_string(&mut src).expect("Unable to read file");
+
+    let syntax = syn::parse_file(&src).expect("Unable to parse file");
+
+    // Debug impl is available if Syn is built with "extra-traits" feature.
+    println!("{:#?}", syntax);
+}
+#+end_src
+
+** Derive input
+https://docs.rs/syn/latest/syn/struct.DeriveInput.html
+
+
+* Hacer un ejemplo de cada tipo de macros
+
+** Macro derive
+
+- Crear un trait con alguna funcion
+- creaar fn que active macro con arg TokenStream
+- se decora con 'proc_macro_derive'
+
+https://doc.rust-lang.org/book/ch19-06-macros.html#procedural-macros-for-generating-code-from-attributes
+
+- se implementa la fn que hace el derive de la macro
+
+
+** Macro atributo decorador
+
+Similar a derive, pero no hace derive de trait, solo crea nuevos
+atributos.
+
+La firma de esta implemetnación de ser.
+
+#+begin_src rust
+#[proc_macro_attribute]
+pub fn route(attr: TokenStream, item: TokenStream) -> TokenStream {
+#+end_src
+
+
+** Macro de tipo función
+
+Se decora con 'proc_macro' una función con args y salida TokenStream
+
+#+begin_src rust
+#[proc_macro]
+pub fn sql(input: TokenStream) -> TokenStream {
+#+end_src
+
+
+** Macros declarativas
+
+#+begin_src rust
+#[macro_export]
+macro_rules! vec {
+    ( $( $x:expr ),* ) => {
+        {
+            let mut temp_vec = Vec::new();
+            $(
+                temp_vec.push($x);
+            )*
+            temp_vec
+        }
+    };
+}
+#+end_src
+
+https://doc.rust-lang.org/book/ch19-06-macros.html#declarative-macros-with-macro_rules-for-general-metaprogramming
