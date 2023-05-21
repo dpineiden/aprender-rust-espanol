@@ -1,5 +1,20 @@
 #+TITLE: Sesión 21 Taller de Rust, macros
 
+* Resumen
+
+Esta sesión consiste en entender los principios de operación de las
+macros, entender la sintaxis y principales símbolos. Se estudia la
+creación de estructura de árbol sintáctico del código, la tokenización
+y la generación de código con macros en *rust*.
+Se estudia un ejemplo sencillo de macros para la creación de un vector
+y también la creación de *derive* sobre un *trait*, en que se
+implementa la versión por defecto para aplicar a una estructura
+deseada.
+Además se distingue la diferencia entre crates normales, de librería y
+de tipo  /proc-macro/.
+
+#macros #rust #derive #trait #proc-macro
+
 * Introducción
 
 Entre los elementos de utilidad que provee el lenguaje *rust* es la
