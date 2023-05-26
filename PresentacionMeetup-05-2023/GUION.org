@@ -1,27 +1,53 @@
 #+TITLE: Taller de Rust en Meetup México
+#+DATE: <2023-05-25 Thu>
+
+#+ATTR_ORG: :width 600px
+[[file:./img/rust.jpg]]
 
 * ¿Qué es el taller de rust?
 
 Es una iniciativa *autónoma y colectiva* que nace con el fin de crear
-contenido en español y aprender paso a paso el lenguaje de forma
-comunitaria en que el conocimiento se comparte y todos nos
+contenido didáctico del lenguaje en español y aprender paso a paso
+ de forma comunitaria en que el conocimiento se comparte y todos nos
 enriquecemos en este recurso.
 
-Es taller y no curso porque quien enseña también es parte del proceso
+Es taller y *no* curso porque quien enseña también es parte del proceso
 de aprendizaje y la preparación del contenido de las clases no es
 absoluto sino parcial. Lo que nos lleva a sesiones en que hay dudas y
 errores que se van resolviendo en el camino. 
+
+El taller es una respuesta a la pregunta ¿Por dónde empezar?
 
 * Motivación
 
 Entre las motivaciones que me llevaron a iniciar el taller:
 
 - Un lenguaje que tiene un muy bajo consumo de energía (paper 2017)
+  *Energy Efficiency across Programming Languages. How do eenergy,
+  time, and memory relate?* De Pereira et al.
+- La necesidad de tener contenidos tecnológicos en castellano
+- Compartir el conocimiento al común
+- Aplicación de métodos pedagógicos comunitarios en temas complejos
 - Herramientas de desarrollo excelentes para creación de proyectos
   (cargo)
 - Es difícil pero no imposible
-- La necesidad de tener contenidos tecnológicos en castellano
-- Aplicación de métodos pedagógicos comunitarios en temas complejos
+- Excelente documentación
+
+#+ATTR_ORG: :width 600px
+[[file:./img/tabla-langs.png]]
+
+
+*Rust* resulta ser tan potente como c o c++ pero más *accessible* gracias
+a sus herramientas de desarrollo.
+
+#+ATTR_ORG: :width 400px
+[[file:./img/firefox.svg]]
+
+[[https://www.technologyreview.es//s/15106/breve-historia-de-rust-el-lenguaje-de-programacion-que-ha-destronado-c][historia]]
+
+Los autores del lenguaje:
+#+ATTR_ORG: :width 600px
+[[file:./img/autores-rust.png]]
 
 * Desafío
 
@@ -46,9 +72,11 @@ Conocimiento estimado antes de iniciar el taller
 
 Aumento de las 'skills' durante el taller 30%.
 
-Para preparar un taller es necesario un 50% recomendado
+Para preparar un taller es necesario un 50% de conocimiento del lenguaje, recomendado.
 
 * Metodología
+
+** Referencias literarias
 
 Establecer los principales textos referentes como
 
@@ -59,15 +87,25 @@ Establecer los principales textos referentes como
 - Programming Rust
 - Etc
 
+#+ATTR_ORG: :width 800px
+[[file:./img/books-rust.png]]
+
+** Similitudes con otros lenguajes
+
 Conocer los lenguajes referentes.
 
-¿Qué hay de ?
+¿Qué hay o no hay de?
 
 - C
 - C++
 - Python
 - Javascript
 - Haskell
+
+#+ATTR_ORG: :width 600px
+[[file:./img/langs.png]]
+
+** ¿Qué hay en rust?
 
 ¿Qué se rescata de cada uno de ellos?
 
@@ -77,53 +115,78 @@ Estilos y paradigmas
 - Estructurado
 - Basado en 'trait'
 
+De Wikipedia:
+
+#+begin_quote
+Rust es un lenguaje de programación compilado, de propósito general y
+multiparadigma que está siendo desarrollado por Fundación Rust. Es un
+lenguaje de programación multiparadigmático que soporta programación
+funcional pura, por procedimientos, imperativa y orientada a objetos.  
+#+end_quote
+
+** Antes de empezar
+
+- Tener horas de práctica: 400hr
+- Saber explicar en dibujos (diagramas)
+- Mucha  *PACIENCIA* 
+
+#+ATTR_ORG: :width 400px
+[[file:./img/paciencia.png]]
+
+** Conceptos a manejar en rust
+
 Establecer categorías de los conceptos más importantes del lenguaje
 
 - tipos
-- genericos
+- mutabildiad
 - traits
+- genericos
 - estructuras
 - métodos y funciones
 - closures
 - hilos,etc
-
-Antes de empezar:
-
-- Tener horas de práctica: 400hr
-
+- lifetimes
 
 * Temas a tratar en el taller, antes de iniciarlo:
-Símbolos
+
+El temario a tratar en el taller consiste en una serie de
+sesiones que traten matices de los temas. 
+
+Es importante el desarrollo *progresivo*  y *correlativo*
+
+** Símbolos
 
 - P :: pendiente
 - O :: falta
 - X :: completo
 
-El programa de este taller constará:
+** Temario
 
 -[X] Herramientas de desarrollo en Rust
 -[X] Estructuras, enums, flujos de control
 -[X] Vectores, parseo, traits
+-[X] matching
+-[X] Logging y tracing
+-[X] Creación de comandos
+-[X] Creación de módulos y testing
+-[X] Async I/O, tokio
+-[X] Serializacion
+-[X] Threading, futures, paralelización
 -[P] Borrow, lifetimes, derives
 -[P] macros, errores
--[x] matching
--[x] Creación de módulos y testing
+-[P] Algoritmos interesantes
 -[O] WASM
 -[O] Conector a Python
 -[O] Interfaces gráficas 
--[x] Logging y tracing
--[x] Creación de comandos
--[P] Algoritmos interesantes
 -[O] Bots
--[x] Async I/O, tokio
--[x] Serializacion
 -[O] gRPC, protobuffers
--[x] Threading, futures, paralelización
 
-Como guía tendremos los libros:
+** Como guía tendremos los libros
 
 - zero 2 production
 - refactoring to rust
+
+Entre otros
 
 * Herramientas
 
@@ -134,6 +197,7 @@ taller.
 - Emacs / OrgMode
 - OpenBoard
 - Terminal
+- Rust analizer
 
 * Recursos
 
@@ -150,8 +214,9 @@ taller.
 
 ** Sesion 1
 
-Se presenta cargo como herramienta para la gestión de proyectos y se
+Se presenta cargo como herramienta para la gestión de proyectos y se 
 realiza un primer ejercicio siguiendo 'Rust Book'.
+
 Conceptos básicos como diferenciar String de str, entre otros.
 Alocación en memoria.
 
@@ -160,15 +225,29 @@ Alocación en memoria.
 Se estudian funciones, uso de tipos de biblioteca estándar,
 estructuras de control y test básico.
 
+Esta sesión presenta el uso de los tipos básicos, composión de datos
+con diferentes tipos, iteradores, algunas estructuras de control,
+introduce conceptos naturales de Rust como ownership y borrowing,
+resuelve un problema de ejemplo usando estos elementos.
+
 Ejemplo 1d: piratas.
 
 ** Sesión 3
 
-Se introduce enum Result, y la estructura Path-PathBuf
-Creación de comandos con argumentos usando std
-Accesio I/O archivos
+Esta sesión consiste en una revisión de uno de los elementos más
+comunes en funciones (enum Result), sus usos recomendados. Además, se
+estudia el objeto Path para la administración de directorios y
+archivos, se estudia la creación de argumentos para comendos con
+'env', y se termina la sesión con la lectura de archivos usando 'fs',
+acceso I/O archivos 
 
 ** Sesión4
+
+En esta sesión hacemos una revisión de un ejercicio propuesto de
+implementar 'ls' (listar archivos y directorios). También se refuerza
+el modulo io, para lectura y escritura de archivosy y finalmente se
+estudia el crate 'csv'.
+
 Lectura y escritura de archivos CSV
 Serialización y deserialización
 Ejercicio de uso de Path y PathBuf
@@ -177,22 +256,25 @@ Presentación del concepto 'trait'
 
 ** Sesión 5
 
-Ejercicio creación de comando simplificado de AWK para leer stream de
-datos y seleccionar campos.
+Consiste en una introducción al enum Option, el uso de match con
+enums. La declaración de structs, una introducción a traits de la
+biblioteca estándar y el uso de derive y el crate derivation.  
 
-AWK es un lenguaje/herramienta para el procesamiento de textos.
-
-Introducción al enum Option
-Uso de match con enums (Option/Result)
-Creación de structs con derive/derivative
-Collections -> Hashmap
+Se estudia además std::collections  HashMap, los diccionarios de Rust. 
+Finalmente con esta introducción se muestra la implementación del
+ejercicio propuesto de hacer una versión reducida de AWK.
 
 ** Sesion 6
 
-Introducción a expresiones regulares con rust.
-Presentación de la idea de 'generics'
-Combinación de traits y generics.
-Ejemplo de biomas
+Expresiones regulares en Rust, ejercicio para encontrar de manera
+libre y estricta cadenas de números enteros. 
+
+Generics: forma de escribir código de manera general que afecte a
+diferentes tipos que implementan traits en común 
+
+Ejemplo Generics y traits, parte I: competencia de seres
+vivos. Ejemplo de biomas 
+
 
 ** Sesion 7
 
@@ -326,6 +408,8 @@ Se implementa 'macro-derive'
 
 ** Futuras sesiones
 
+Si todo va bien.
+
 - Macros de fn
 - Wasm
 - gRPC
@@ -338,13 +422,15 @@ Se implementa 'macro-derive'
 
 * Difusión
 
-Cada sesión se graba y se sube, sin más edición que la conversión de
-formato de video.
+Cada sesión se graba y se sube, sin más edición que la conversión de 
+formato de video
+.
 Se publica a yt y se comparte en las redes y canales.
 
 * Por hacer
 
 Una web pública
+
 Sistema de donaciones
 
 
