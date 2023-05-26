@@ -72,7 +72,8 @@ Conocimiento estimado antes de iniciar el taller
 
 Aumento de las 'skills' durante el taller 30%.
 
-Para preparar un taller es necesario un 50% de conocimiento del lenguaje, recomendado.
+Para preparar un taller es necesario un 50% de conocimiento del
+lenguaje, recomendado. 
 
 * Metodología
 
@@ -98,9 +99,9 @@ Conocer los lenguajes referentes.
 
 - C
 - C++
-- Python
-- Javascript
-- Haskell
+- Python -> conda, pip, poetry -> typing, dataclass, pydantic
+- Javascript -> npm, yarn :: Typescript
+- Haskell :: derive, datatype, fns
 
 #+ATTR_ORG: :width 600px
 [[file:./img/langs.png]]
@@ -113,7 +114,10 @@ Estilos y paradigmas
 
 - Funcional
 - Estructurado
-- Basado en 'trait'
+- Basado en 'trait' 
+
+A una estructura se le activa un 'trait' 
+Trait -> typos, metodos.
 
 De Wikipedia:
 
@@ -146,6 +150,10 @@ Establecer categorías de los conceptos más importantes del lenguaje
 - closures
 - hilos,etc
 - lifetimes
+- concurrencia y ||
+
+-> Patrones de diseño, etc
+
 
 * Temas a tratar en el taller, antes de iniciarlo:
 
@@ -170,16 +178,16 @@ Es importante el desarrollo *progresivo*  y *correlativo*
 -[X] Creación de comandos
 -[X] Creación de módulos y testing
 -[X] Async I/O, tokio
--[X] Serializacion
+-[X] Serializacion/Derserializacion
 -[X] Threading, futures, paralelización
 -[P] Borrow, lifetimes, derives
 -[P] macros, errores
 -[P] Algoritmos interesantes
--[O] WASM
+-[O] Web assembly -> INTERFACES GRAFICAS
 -[O] Conector a Python
--[O] Interfaces gráficas 
--[O] Bots
--[O] gRPC, protobuffers
+-[O] Interfaces gráficas -> recomienden!!
+-[O] Bots 
+-[O] gRPC, protobuffers -> API Rest // multilenguaje
 
 ** Como guía tendremos los libros
 
@@ -193,11 +201,15 @@ Entre otros
 Los siguientes software se han utilizado para el desarrollo del
 taller.
 
+Stack de trabajo:
+
 - Linux mint debbie
 - Emacs / OrgMode
 - OpenBoard
 - Terminal
 - Rust analizer
+- Jitsi
+- OBS Studio
 
 * Recursos
 
@@ -370,6 +382,13 @@ Presentación de ejemplo: Temperatura-Ciudad
 Se crean tablas con SQL
 Se crea esquema
 
+#+begin_src rust
+println!("Hola mundo")
+#+end_src
+
+#+RESULTS:
+: Hola mundo
+
 ** Sesión 18
 
 Se implementa la creación de tablas con restricciones
@@ -432,5 +451,3 @@ Se publica a yt y se comparte en las redes y canales.
 Una web pública
 
 Sistema de donaciones
-
-
