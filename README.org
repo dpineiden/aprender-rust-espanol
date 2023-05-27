@@ -1,0 +1,270 @@
+* Temas tratados por sesión
+
+** Sesion 1
+
+Se presenta cargo como herramienta para la gestión de proyectos y se 
+realiza un primer ejercicio siguiendo 'Rust Book'.
+
+Conceptos básicos como diferenciar String de str, entre otros.
+Alocación en memoria.
+
+** Sesión 2
+
+Se estudian funciones, uso de tipos de biblioteca estándar,
+estructuras de control y test básico.
+
+Esta sesión presenta el uso de los tipos básicos, composión de datos
+con diferentes tipos, iteradores, algunas estructuras de control,
+introduce conceptos naturales de Rust como ownership y borrowing,
+resuelve un problema de ejemplo usando estos elementos.
+
+Ejemplo 1d: piratas.
+
+** Sesión 3
+
+Esta sesión consiste en una revisión de uno de los elementos más
+comunes en funciones (enum Result), sus usos recomendados. Además, se
+estudia el objeto Path para la administración de directorios y
+archivos, se estudia la creación de argumentos para comendos con
+'env', y se termina la sesión con la lectura de archivos usando 'fs',
+acceso I/O archivos 
+
+** Sesión4
+
+En esta sesión hacemos una revisión de un ejercicio propuesto de
+implementar 'ls' (listar archivos y directorios). También se refuerza
+el modulo io, para lectura y escritura de archivosy y finalmente se
+estudia el crate 'csv'.
+
+Lectura y escritura de archivos CSV
+Serialización y deserialización
+Ejercicio de uso de Path y PathBuf
+Paralelo String/PathBuf
+Presentación del concepto 'trait'
+
+** Sesión 5
+
+Consiste en una introducción al enum Option, el uso de match con
+enums. La declaración de structs, una introducción a traits de la
+biblioteca estándar y el uso de derive y el crate derivation.  
+
+Se estudia además std::collections  HashMap, los diccionarios de Rust. 
+Finalmente con esta introducción se muestra la implementación del
+ejercicio propuesto de hacer una versión reducida de AWK.
+
+** Sesion 6
+
+Expresiones regulares en Rust, ejercicio para encontrar de manera
+libre y estricta cadenas de números enteros. 
+
+Generics: forma de escribir código de manera general que afecte a
+diferentes tipos que implementan traits en común 
+
+Ejemplo Generics y traits, parte I: competencia de seres
+vivos. Ejemplo de biomas 
+
+
+** Sesion 7
+
+Solución del ejemplo 6
+Estructuración de un proyectos
+Uso de generics  y traits
+Presentación de 'Smart Pointers' -> 
+- Box
+- Rc
+- Weak
+
+** Sesión 8
+
+Caĺculos de tiempo, ¿Cuánto tiempo hemos vivido?
+Uso de timezone.
+Introducción a threading
+
+** Sesión 9
+
+Creación de funciones anónimas o closures
+Traits que implementan FnOnce, Fn, FnMut
+Multithreading y uso de Mutex para uso compartido
+Canales para mensajear objetos
+
+** Sesión 10
+
+Introducción a asincronimo/concurrencia
+Uso de bib estandar async/await -> trait Future
+Presentación de crate "async_std" y "futures"
+Conceptos como 'event loop'
+
+
+** Sesión 11
+
+Conceptos para comunicación interprocesos
+Creación de 'socket-unix' y "socket-tcp"
+Comunicación de datos a través de socket
+Serialización y binarización de estructuras
+
+** Sesión 12
+
+Conversión de datos tipos básicos a bytes y viceversa.
+Transmisión de mensajes más complejos que un string
+Reestructuración de un proyecto.
+
+** Sesión 13
+
+Operadores 'bitwise'
+Conversión de tipos int y float
+Uso de socket para comunicar bytes.
+Socket con async
+
+
+** Sesión 14.
+
+Ejercicios de programación funcional
+Programación con dos lenguajes:
+- Haskell
+- Rust
+Solución de las primeras páginas del libro de ejercicios 'Piensa en Haskell'
+Problemas matemáticos y geométricos
+
+
+** Sesión 15
+
+Ejercicios de programación funcional
+Programación con dos lenguajes:
+- Haskell
+- Rust
+Solución de las siguientespáginas del libro de ejercicios 'Piensa en Haskell'
+Problemas matemáticos y geométricos
+
+** Sesión 16
+
+Introducción a  bases de datos con Rust
+Principios de SQL
+Comparativa de bases de datos
+Selección de base de datos
+Esquema general de una db, diferencia motor de datos
+Introducción de crate *tokio* seguimiento de tutorial
+
+** Sesión 17
+
+Taller de Óxido, en castellano mencionando la polémica de la
+'fundación' para limitar el uso del nombre de rust.
+
+- Continuación del tutorial de Tokio
+- Uso y definición de variables de ambiente
+- Inicialización de uso de SQL con Rust: crate SQLx
+
+Presentación de ejemplo: Temperatura-Ciudad
+
+Se crean tablas con SQL
+Se crea esquema
+
+#+begin_src rust
+println!("Hola mundo")
+#+end_src
+
+#+RESULTS:
+: Hola mundo
+
+** Sesión 18
+
+Se implementa la creación de tablas con restricciones
+Se agregan datos  a las tablas
+Se crean funciones para consultar tablas usando Rust +SQLx
+
+** Sesión 19
+
+Se modifica la estructura de la db con SQl
+Se implementan funciones para crear tablas, modificarlas.
+Se implementan funciones para agregar datos en tablas
+
+Se enseña el concepto de 'migración'
+Se implementa migración que construye la db y las tablas en el
+ejercicio.
+
+** Sesión 20
+
+Se crean inserts como funciones en Rust
+Se leen csv y cargan datos a la base de datos creando comandos en Rust
+Se crean test básicos
+
+** Sesión 21
+
+Se modifica el nombre del proyecto de 'test-db' a 'ejemplo-db'
+Se implementa logging con tracing del ecosistema tokio
+Se implemetnacion funciones de 'delete' (update propuesto)
+Se crean test adicionales
+
+** Sesión 22
+
+Se presenta el concepto de 'macros', cómo es el procedimiento que
+integra una macro al compilar y como se crean.
+Se caracterizan los tipos de macros
+Se implementa 'macro-derive'
+
+** Sesión 23
+
+Se continua con el aprendizaje de macros. En esta sesión se profundiza
+en el uso de /macro_rules/ para crear diferentes implementaciones de
+código dependiendo de los argumentos posibles que permite este tipo de
+macros. 
+
+Ejemplos revisados:
+
+- macro void
+- macro que crea funciones en base a templates
+- macro que usa estructuras
+- macro que imprime en colores 
+
+** Temario
+
+-[X] Herramientas de desarrollo en Rust
+-[X] Estructuras, enums, flujos de control
+-[X] Vectores, parseo, traits
+-[X] matching
+-[X] Logging y tracing
+-[X] Creación de comandos
+-[X] Creación de módulos y testing
+-[X] Async I/O, tokio
+-[X] Serializacion/Derserializacion
+-[X] Threading, futures, paralelización
+-[P] Borrow, lifetimes, derives
+-[P] macros, errores
+-[P] Algoritmos interesantes
+-[O] Web assembly -> INTERFACES GRAFICAS
+-[O] Conector a Python
+-[O] Interfaces gráficas -> recomienden!!
+-[O] Bots 
+-[O] gRPC, protobuffers -> API Rest // multilenguaje
+
+** Como guía tendremos los libros
+
+- zero 2 production
+- refactoring to rust
+
+Entre otros
+
+* Herramientas
+
+Los siguientes software se han utilizado para el desarrollo del
+taller.
+
+Stack de trabajo:
+
+- Linux mint debbie
+- Emacs / OrgMode
+- OpenBoard
+- Terminal
+- Rust analizer
+- Jitsi
+- OBS Studio
+
+* Recursos
+
+- Grupo Telegram 'Aprender Rust' ::https://t.me/aprenderrust
+
+- Repositorio de sesiones ::
+  https://gitlab.com/rust-espanol/aprender-rust-en-espanol.git
+
+- Playlist Youtube :: https://www.youtube.com/watch?v=dDX-MMFD8YI&list=PLP3JrIiWQArVUYA2Mt8S_jVvRq_SElVWB
+
+- Página Linkedin :: https://www.linkedin.com/company/93656122/admin/

@@ -1,0 +1,110 @@
+#+TITLE: Sesión 23 Taller de Rust : macros II
+
+
+* Introductión
+
+En esta ocasión revisaremos la creación de macros de tipo funcional
+que se usan con /funcion!(argumentos)/
+
+
+Se continua con el aprendizaje de macros. En esta sesión se profundiza
+en el uso de /macro_rules/ para crear diferentes implementaciones de
+código dependiendo de los argumentos posibles que permite este tipo de
+macros. 
+
+Ejemplos revisados:
+
+- macro void
+- macro que crea funciones en base a templates
+- macro que usa estructuras
+- macro que imprime en colores 
+
+
+* Ejercicio propuesto
+
+** Objetos a bytes
+
+Recordando una sesión anterior, tenemos que es posible convertir
+diferentes objetos en cadenas de bytes, una serie de valores
+elementales que, digitalmente, son posible de convertir.
+
+Acá concatenamos algunos strings y valores en la misma serie de bytes.
+
+#+begin_src rust
+let valor:u32 = 34;
+let bytes = valor.to_be_bytes();
+println!("{:?}", bytes); 
+#+end_src
+
+#+RESULTS:
+: [0, 0, 0, 34]
+
+
+#+begin_src rust
+let valor:f32 = 34.0;
+let bytes = valor.to_be_bytes();
+println!("{:?}", bytes); 
+#+end_src
+
+#+RESULTS:
+: [66, 8, 0, 0]
+
+Y también pasar un  /string/ a bytes.
+
+#+begin_src rust
+let string = "Hola taller de rust";
+let bytes  = string.as_bytes();
+println!("{:?}", bytes);
+#+end_src
+
+#+RESULTS:
+: [72, 111, 108, 97, 32, 116, 97, 108, 108, 101, 114, 32, 100, 101, 32, 114, 117, 115, 116]
+
+
+#+begin_src rust :results output
+let valor1:u32 = 34;
+let bytes1 = valor1.to_be_bytes();
+let valor2:f32 = 34.0;
+let bytes2 = valor2.to_be_bytes();
+let string = "Hola taller de rust";
+let bytes3  = string.as_bytes();
+let struct_format = format!(">If{}c", bytes3.len());
+let all_bytes = [&bytes1,&bytes2,bytes3].concat();
+println!("{:?}",struct_format);
+println!("Bytes array: {:?}",&all_bytes);
+println!("---");
+#+end_src
+
+#+RESULTS:
+: ">If19c"
+: Bytes array: [0, 0, 0, 34, 66, 8, 0, 0, 72, 111, 108, 97, 32, 116, 97, 108, 108, 101, 114, 32, 100, 101, 32, 114, 117, 115, 116]
+: ---
+
+
+#+begin_src emacs-lisp
+(setq org-babel-python-command "python3")
+#+end_src
+
+#+RESULTS:
+: python3
+
+#+begin_src python :results output
+import struct
+text = bytes("Hola taller de rust",'utf-8')
+data= struct.pack(f"=If{len(text)}s",34,34.0, text)
+print("Bytes",data)
+n = len(data) - 8
+result = struct.unpack(f"=If{n}s", data)
+print(result)
+#+end_src
+
+#+RESULTS:
+: Bytes b'"\x00\x00\x00\x00\x00\x08BHola taller de rust'
+: (34, 34.0, b'Hola taller de rust')
+
+** Objetivo del ejercicio
+
+Dada una serie de bytes en un array, convertirlo en una serie de
+valores correspondientes y entregar los valores en una estructura tupla.
+
+Crear una macro para convertir el array de bytes en la estructura.

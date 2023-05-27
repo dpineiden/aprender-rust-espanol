@@ -50,6 +50,7 @@ mod tests {
 
 
 pub trait EstaVivo {
+	//type
 	fn check(&self) -> bool;
 }
 
