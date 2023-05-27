@@ -218,22 +218,39 @@ Ejemplos revisados:
 ** Temario
 
 -[X] Herramientas de desarrollo en Rust
+
 -[X] Estructuras, enums, flujos de control
+
 -[X] Vectores, parseo, traits
+
 -[X] matching
+
 -[X] Logging y tracing
+
 -[X] Creación de comandos
+
 -[X] Creación de módulos y testing
+
 -[X] Async I/O, tokio
+
 -[X] Serializacion/Derserializacion
+
 -[X] Threading, futures, paralelización
+
 -[P] Borrow, lifetimes, derives
+
 -[P] macros, errores
+
 -[P] Algoritmos interesantes
+
 -[O] Web assembly -> INTERFACES GRAFICAS
+
 -[O] Conector a Python
+
 -[O] Interfaces gráficas -> recomienden!!
+
 -[O] Bots 
+
 -[O] gRPC, protobuffers -> API Rest // multilenguaje
 
 ** Como guía tendremos los libros
