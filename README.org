@@ -215,6 +215,17 @@ Ejemplos revisados:
 - macro que usa estructuras
 - macro que imprime en colores 
 
+** Sesión 24
+
+Continuamos el aprendizaje de macros. Vemos como usar una macro a
+través de diferentes crates aplicando 'macro_export', además revisamos
+en un ejemplo la lectura de csv transformado a diferentes estructura
+que tengan aplicado trait serde::Deserialization. Con esto medimos las
+diferencias de tiempo en realizar la operación y creamos macro que se
+pueda aplicar para medir este tiempo.
+Además se implementa macro que transforma dos secuencias o series de
+valores en un hashmap.
+
 ** Temario
 
 -[X] Herramientas de desarrollo en Rust

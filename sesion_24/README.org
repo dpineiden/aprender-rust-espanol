@@ -1,0 +1,17 @@
+#+TITLE: Sesion 24 Taller de Rust: Macros III
+
+* Introducción se crea macros más
+
+Primero vamos a crear un 'crate' de usar macros.
+Es decir un programa main para ingresarle algunos parámetros.
+
+Creando macro desde otro crate.
+
+Ejemplo base de datos:
+
+- ciudad.csv
+- temperatura.csv
+
+Crear una función única, según el tipo retorne un HashMap o diccionario.
+
+- parametro de entrada para un comando -> "clap"

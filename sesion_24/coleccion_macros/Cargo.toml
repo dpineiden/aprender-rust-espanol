@@ -1,14 +1,12 @@
 [package]
-name = "timing"
+name = "coleccion_macros"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-[lib]
-proc-macro = true
-
 
 [dependencies]
-proc-macro2 = "1.0.59"
-quote = "1.0.28"
-syn = { version = "2.0.18", features = ["full"] }
+csv = "1.2.2"
+serde = { version = "1.0.163", features = ["derive", "serde_derive"] }
+serde_derive = "1.0.163"
+serde_json = "1.0.96"
