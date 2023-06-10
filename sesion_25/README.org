@@ -1,0 +1,48 @@
+#+TITLE: Sesión 25: Remote Procedure Calls (I)
+
+Esta sesión 25, consiste en aprender a implementar un protocolo de
+comunicación TCP/IP utilizando el estándar gRPC en que se declaran los
+elementos principales que lo componen, facilitando la creación de
+sistema de comunicación altamente optimizados.
+Se revisan conceptos, ejemplos y comparativas con otras técnicas de
+comunicación de mensajes.
+Con rust se usa el ecosistema tokio y el crate tonic, además de otros
+que facilitan la conversión protobuffer a rust.
+
+
+#rust #grpc #rpc #socket #ipc #json #apirest
+
+* Principios y Conceptos
+** Comunicación entre dos puntos
+** Uso de string
+** Uso de json
+** Protocolo propio
+** Comunicación server|cliente
+
+* Remote Procedure Call
+** Definición 
+Es un mensaje que genera una acción, el mensaje se emite desde un
+punto diferente al equipo que tiene la capacidad de responder a la
+acción, trabaja bajo el esqueam server-cliente.
+
+Bajo el esquema OSI: opera entre la /transport/ + /application/ layers.
+
+https://www.techtarget.com/searchapparchitecture/definition/Remote-Procedure-Call-RPC
+
+* gRPC
+
+https://grpc.io/
+
+Diagramas y conceptos
+
+* Implementación gRPC con tonic/tokio
+
+** Crear el build
+
+** ejemplos
+
+https://github.com/hyperium/tonic/tree/master/examples
+
+** Types grpc
+
+https://protobuf.dev/programming-guides/proto3/

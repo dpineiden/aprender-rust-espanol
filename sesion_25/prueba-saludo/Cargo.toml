@@ -1,0 +1,25 @@
+[package]
+name = "prueba-saludo"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+prost = "0.11.9"
+prost-types = "0.11.9"
+tokio = { version = "1.28.2", features = ["tokio-macros", "macros", "full"] }
+tonic = "0.9.2"
+
+[build-dependencies]
+tonic-build = "0.9.2"
+
+
+[[bin]]
+name =  "server_saludo"
+path = "src/server.rs"
+
+
+[[bin]]
+name =  "client_saludo"
+path = "src/client.rs"

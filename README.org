@@ -226,6 +226,18 @@ pueda aplicar para medir este tiempo.
 Además se implementa macro que transforma dos secuencias o series de
 valores en un hashmap.
 
+** Sesión 25: Remote Procedure Calls (I)
+
+Esta sesión 25, consiste en aprender a implementar un protocolo de
+comunicación TCP/IP utilizando el estándar gRPC en que se declaran los
+elementos principales que lo componen, facilitando la creación de
+sistema de comunicación altamente optimizados.
+Se revisan conceptos, ejemplos y comparativas con otras técnicas de
+comunicación de mensajes.
+Con rust se usa el ecosistema tokio y el crate tonic, además de otros
+que facilitan la conversión protobuffer a rust.
+
+
 ** Temario
 
 -[X] Herramientas de desarrollo en Rust
@@ -248,11 +260,15 @@ valores en un hashmap.
 
 -[X] Threading, futures, paralelización
 
+-[X] macros
+
+-[P] gRPC, protobuffers -> API Rest // multilenguaje
+
 -[P] Borrow, lifetimes, derives
 
--[P] macros, errores
-
 -[P] Algoritmos interesantes
+
+-[O] errores
 
 -[O] Web assembly -> INTERFACES GRAFICAS
 
@@ -261,8 +277,6 @@ valores en un hashmap.
 -[O] Interfaces gráficas -> recomienden!!
 
 -[O] Bots 
-
--[O] gRPC, protobuffers -> API Rest // multilenguaje
 
 ** Como guía tendremos los libros
 

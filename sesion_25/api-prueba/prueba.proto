@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package prueba;
+//import "google/protobuf/timestamp.proto";
+// Definimos los servicios
+
+service PruebaService {
+  // definimos accionar
+  rpc Saludar (SaludoRequest) returns (SaludoReply) {}
+};
+
+message SaludoRequest {
+  // tipo nombre-campo = posicion
+  string nombre = 1;
+  // [ header | nombre]
+}
+
+
+message SaludoReply {
+  string saludo = 1;
+}
+
