@@ -238,6 +238,19 @@ Con rust se usa el ecosistema tokio y el crate tonic, además de otros
 que facilitan la conversión protobuffer a rust.
 
 
+** Sesión 26: Remote Procedure Calls (II), streams
+
+En esta sesión (26) continuamos el estudio de la implementación de
+un protocolo de comunicación mediante el sistema de *protobuffers* por
+*gRPC*. Esta sesión consiste en trabajar con la definición de
+funciones que permitan enviar/recibir *streams*, es decir trozos de datos en un
+flujo continuo, de manera tal que la comunicación de dataset o
+información que en su tamaño total sea grande, sea eficiente en todo
+su proceso.
+Realizamos un ejemplo de generar números primos y enviarlos desde el
+servidor al cliente en un *stream*.
+
+
 ** Temario
 
 -[X] Herramientas de desarrollo en Rust

@@ -15,7 +15,7 @@ message SaludoRequest {
   // [ header | nombre]
 }
 
-
+// response from server
 message SaludoReply {
   string saludo = 1;
 }

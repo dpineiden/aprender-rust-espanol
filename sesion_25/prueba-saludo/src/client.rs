@@ -9,7 +9,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 	let request =
 		Request::new(SaludoRequest{nombre:"Juanita".into()});
 	let response = client.saludar(request).await?;
-	println!("RESPONSE={:?}", response);
+	println!("RESPONSE={:?}", response.into_inner().saludo);
 
 	Ok(())
 }

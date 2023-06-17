@@ -1,7 +1,7 @@
 use tonic::{transport::Server, Request, Response, Status};
-use prueba_saludo::prueba_protocol::{PrimosRequest, PrimosResponse};
-use prueba_saludo::prueba_protocol::primos_service_server::{
-	PrimosService,PrimosServiceServer};
+use prueba_saludo::prueba_protocol::{PrimosRequest, SaludoReply};
+use prueba_saludo::prueba_protocol::prueba_service_server::{
+	PruebaService,PruebaServiceServer};
 
 
 #[derive(Default)]

@@ -1,0 +1,33 @@
+#+TITLE: Sesión 26: Remote Procedure Calls (II), streams
+
+En esta sesión (26) continuamos el estudio de la implementación de
+un protocolo de comunicación mediante el sistema de *protobuffers* por
+*gRPC*. Esta sesión consiste en trabajar con la definición de
+funciones que permitan enviar/recibir *streams*, es decir trozos de datos en un
+flujo continuo, de manera tal que la comunicación de dataset o
+información que en su tamaño total sea grande, sea eficiente en todo
+su proceso.
+Realizamos un ejemplo de generar números primos y enviarlos desde el
+servidor al cliente en un *stream*.
+
+#rust #grpc #socket #ipc #stream #numerosprimos
+
+* Principios y conceptos
+** Repaso sesión anterior
+** De un array a un stream
+
+* Ejemplo práctico
+** Conocer el status del computador
+** Definir el mensaje para solicitar el status
+** Implementar gRPC sobre Rust para crear el servicio
+
+
+https://gitlab.com/centro-sismologico/device-info-status
+
+
+* Ejercicio propuesto
+
+Generar un servicio que entrega status de una serie de paths o discos
+duros.
+
+https://gitlab.com/centro-sismologico/device-info-status
