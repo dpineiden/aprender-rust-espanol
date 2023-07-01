@@ -320,7 +320,7 @@ taller.
 Stack de trabajo:
 
 - Linux mint debbie
-- Emacs / OrgMode
+- Emacs / OrgMode -> Loica
 - OpenBoard
 - Terminal
 - Rust analizer
