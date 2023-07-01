@@ -251,6 +251,20 @@ Realizamos un ejemplo de generar números primos y enviarlos desde el
 servidor al cliente en un *stream*.
 
 
+** Sesión 27: Remote Procedure Calls (III), streams en nros primos 
+
+
+En esta sesión se continúa trabajando con el ejercicio de la
+sesión 26. Se observa que es posible mejorar el rendimiento  de la
+operación que genera números primos. Por lo que se crea una función
+asíncrona que entregue los valores en un canal de transmisión que
+provee tokio. Luego se implementa en el protobuffer y en el crate del
+servicio rust la API para habilitar la llamada asíncrona de números
+primos. Por último se evalúa el tiempo de operación de cada acción y
+se compara. Se finaliza con una revisión del próximo ejercicio que
+consiste en revisar el estatus de memoria de un dispositivo.
+
+
 ** Temario
 
 -[X] Herramientas de desarrollo en Rust

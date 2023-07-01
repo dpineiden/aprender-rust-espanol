@@ -12,6 +12,7 @@ consiste en revisar el estatus de memoria de un dispositivo.
 
 #rust #grpc #matematica #optimización #rendimiento #permformance
 
+
 Se hace gRPC combinado con información ya disponible.
 Permitiendo acceder a esta desde la consulta general.
 
