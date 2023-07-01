@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package primos_rpc;
+
+service PrimosService {
+  rpc PrimerosPrimos(PrimosRequest) returns (stream PrimosResponse) {}
+  rpc AsyncPrimerosPrimos(PrimosRequest) returns (stream PrimosResponse) {}
+};
+
+message PrimosRequest {
+  uint64 n = 1;
+}
+
+
+message PrimosResponse {
+  uint64 primo = 1;
+}

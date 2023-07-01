@@ -1,0 +1,30 @@
+[package]
+name = "primos-service"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+prost = "0.11.9"
+prost-types = "0.11.9"
+tokio = { version = "1.28.2", features = ["tokio-macros", "macros", "full"] }
+tokio-stream = { version = "0.1.14", features = ["full"] }
+tonic = "0.9.2"
+primos = {path="../primos"}
+futures-util = "0.3.28"
+futures-core = "0.3.28"
+
+
+[build-dependencies]
+tonic-build = "0.9.2"
+
+
+[[bin]]
+name =  "server_primos"
+path = "src/server.rs"
+
+
+[[bin]]
+name =  "client_primos"
+path = "src/client.rs"

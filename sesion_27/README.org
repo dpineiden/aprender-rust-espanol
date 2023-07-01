@@ -1,0 +1,12 @@
+Se hace gRPC combinado con información ya disponible.
+Permitiendo acceder a esta desde la consulta general.
+
+Mejora servicio sesión 26.
+
+- Ajustes del algoritmo
+
+Necesario
+
+- crate 'device-info-status'
+- api gRPC 
+- declarar servicio, server, client
