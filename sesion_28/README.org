@@ -1,0 +1,30 @@
+#+TITLE: Sesión 28, Rust gRPC IV. Un CRUD desde gRPC.
+
+Esta sesión consiste en habilitar un servicio gRPC que permita obtener
+información de sistema desde un servicio y activar determinadas
+acciones desde el cliente.
+
+En primer lugar se define el concepto de que nuestro servicio está conectado a otro software que genera o contiene información, desacoplando modularmente respecto al ejemplo de números primos.
+
+También considera la composición de mensajes de distintos tipos, así como su análogo con estructuras y algunas técnicas para transformación de tipos de manera directa usando el trait 'From'.
+
+Se comienza a crear el servicio que dispone de acciones CRUD (create, read, update, delete) y se pone a prueba el concepto exitosamente, distinguiendo aquel software que es parte de 'lib' y quel software que es parte de 'bin', en que la forma de hacer importaciones cambia de manera distintiva.
+
+#emacs #rust #grpc #crud #status #device
+
+A considerar:
+
+- Leer toml de configuración
+- Acciones desde el cliente
+- Device Info Status, revisión crate y acciones
+- Crear protobuffers
+- Implementar servicios y clases
+- Hacer pruebas
+- Uso de Redis
+
+Otros ítems:
+
+- Montar servicio en servidor
+- Usar SSL para servidor
+https://github.com/hyperium/tonic/blob/master/examples/src/tls/server.rs
+https://github.com/hyperium/tonic/blob/master/examples/src/tls/client.rs
