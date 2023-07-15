@@ -24,11 +24,7 @@ use std::collections::HashMap;
 use std::sync::{Arc,Mutex};
 use std::env;
 use dotenv::dotenv;
-// importar los traits y tipos de chrono
 use chrono::prelude::*;
-use prost_types::Timestamp;
-
-
 
 #[derive(Debug,Clone)]
 pub struct DeviceItem {
@@ -61,6 +57,7 @@ impl DeviceItem {
 	}
 	
 }
+use prost_types::Timestamp;
 
 impl From<Memory> for rpcM {
 	fn from(value:Memory) -> Self {
@@ -83,23 +80,32 @@ impl From<MemoryHumanInfo> for rpcMHF {
 
 }
 
+
+/*Tarea:: revisar como implementar for para traits de otros crates*/
+// impl From<DateTime<Utc>> for Timestamp {
+// 	fn from(dt:DateTime<Utc>) -> Self {
+// 		let seconds = dt.timestamp() as i64;
+// 		let nanos = dt.timestamp_subsec_nanos() as i32;
+// 		Self {seconds, nanos};
+// 	}
+// }
+
 impl From<Device> for DeviceReply {
 	fn from(value:Device)->Self {
 		// convertira Timestamp
 		let dt = value.get_datetime();
 		let seconds = dt.timestamp() as i64;
-		let nanos = dt.timestamp_nanos() as i32;
-		println!("Nanos->{}", nanos);
-		let ts:Timestamp = dt.into();
-			Self{
-				ids: value.get_id(),
-				datetime:Some(ts),
-				name: value.get_name(),
-				host: value.get_host(),
-				path: value.get_db_path().into_os_string().into_string().unwrap(),
-				memory: Some(value.get_memory().into()),
-				memory_human: Some(value.memory_info().into())
-			}
+		let nanos = dt.timestamp_subsec_nanos() as i32;
+		let ts:Timestamp = Timestamp {seconds, nanos};
+		Self{
+			ids: value.get_id(),
+			datetime:Some(ts),
+			name: value.get_name(),
+			host: value.get_host(),
+			path: value.get_db_path().into_os_string().into_string().unwrap(),
+			memory: Some(value.get_memory().into()),
+			memory_human: Some(value.memory_info().into())
+		}
 
 		}
 
@@ -133,6 +139,25 @@ impl DeviceService {
 		items.get(id).cloned()
 	}
 
+	pub fn new_id(&self)-> u32{
+		let items = self.items.lock().unwrap();
+		let ids:u32 = items.values().fold(u32::MIN, |acc, item_b|
+										  acc.max(item_b.get_id()));
+		ids + 1
+	}
+
+	pub fn create(&self,
+				  msg:&DeviceCreateRequest
+	)->Option<DeviceCreateReply>{
+		let newid = self.new_id();
+		let path = Path::new(&msg.path);
+		// habilitar modificación	
+		let item = DeviceItem::new(newid, &msg.name, path);
+		let mut items = self.items.lock().unwrap();
+		items.insert(newid, item);
+		Some(DeviceCreateReply {ids:newid, created:true})
+	}
+
 }
 
 
@@ -154,5 +179,19 @@ impl StatusDeviceService for DeviceService{
 			None => Err(Status::new(Code::InvalidArgument, "Ids is invalid"))
 		}
 	}
+
+	async fn create_device_register(
+		&self,
+		request:Request<DeviceCreateRequest>) ->
+		Result<Response<DeviceCreateReply>, Status> {
+			// que se modifica?
+			let msg = request.into_inner();
+			match self.create(&msg){
+				Some(reply)=>{
+					Ok(Response::new(reply))
+				},
+				None => Err(Status::new(Code::InvalidArgument, "Ids cannot be created"))
+			}
+		}
 
 }

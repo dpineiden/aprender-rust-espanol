@@ -280,6 +280,18 @@ Se comienza a crear el servicio que dispone de acciones CRUD (create, read, upda
 #emacs #rust #grpc #crud #status #device
 
 
+** Sesión 29, Rust gRPC V. Un CRUD desde gRPC (2).
+
+Esta sesión se continua la implementación un CRUD en gRPC.
+Se arregla la transformación DateTime a Timestamp.
+Se crea una interfaz interactiva en la terminal en lado cliente con el
+crate "inquire".
+Se crean las acciones UPDATE, CREATE, DELETE y se corrigen o mejoran
+algunas implementaciones.
+Quedan como ejercicios propuestos: UPDATE, DELETE y LIST.
+
+#rust #grpc #client #server #inquire #ui #tui
+
 ** Temario
 
 -[X] Herramientas de desarrollo en Rust
