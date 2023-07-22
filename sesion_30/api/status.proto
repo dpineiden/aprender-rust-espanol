@@ -1,0 +1,99 @@
+syntax =  "proto3";
+
+import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+
+package status_device;
+
+
+service StatusDeviceService {
+  // get
+  rpc GetMemoryInfo(DeviceRequest) returns (DeviceReply);
+  // create
+  rpc CreateDeviceRegister(DeviceCreateRequest) returns (DeviceCreateReply); 
+  // update
+
+  // delete
+  // 
+  
+  // delete se trata de borrar un registro dado un id
+  //rpc DeleteDeviceRegister(DeviceRequest) returns (DeviceDeletedReply);
+
+  // actualiza el nombre o el path del registro, por un error al
+  // registar y se desea cambiar
+  //rpc UpdateDeviceRegister(DeviceUpdateRequest) returns (DeviceUpdatedReply);
+  
+  // obtener la lista de todos los registros
+  //rpc GetAllDeviceInfo(google.protobuf.Empty) returns (stream DeviceReply);
+
+
+
+}
+
+
+message Memory {
+  uint64 available = 1;
+  uint64 free = 2;
+  uint64 total = 3;
+}
+
+message MemoryHumanInfo {
+  enum Scala {
+	Bytes = 0;
+	KiloBytes = 1;
+	MegaBytes = 2;
+	GigaBytes = 3;
+	TeraBytes = 4;
+  }
+
+  double available = 1;
+  double percentage = 2;
+  Scala scala = 3;
+}
+
+message DeviceReply {
+  uint32 ids = 1;
+  google.protobuf.Timestamp datetime = 2;
+  string name = 3;
+  string host = 4;
+  string path = 5;
+  Memory memory = 6;
+  MemoryHumanInfo memory_human = 7;
+}
+
+
+message DeviceDeletedReply {
+  uint32 ids = 1;
+  bool deleted = 2;
+}
+
+message DeviceRequest {
+  uint32 ids = 1;
+}
+
+message DeviceUpdateRequest {
+  uint32 ids = 1;
+  string name = 2;
+  string path = 3;
+}
+
+message DeviceUpdateReply {
+  uint32 ids=1;
+  bool updated = 2;
+}
+
+
+message DeviceCreateRequest {
+  string name = 2;
+  string path = 3;
+}
+
+message DeviceCreateReply {
+  uint32 ids  = 1;
+  bool created = 2;
+}
+
+
+

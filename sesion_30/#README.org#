@@ -132,3 +132,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 #+end_src
+
+
+* Server Público
+
+IP 165.227.193.0
