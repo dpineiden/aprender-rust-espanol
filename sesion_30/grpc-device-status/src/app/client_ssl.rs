@@ -1,8 +1,8 @@
 use grpc_device_status::rpc_status_device::status_device_service_client::{StatusDeviceServiceClient};
-
-
 use grpc_device_status::rpc_status_device::{DeviceRequest, DeviceCreateRequest};
 
+// capa de seguridad
+use tonic::transport::{Certificate, Channel, ClientTlsConfig};
 
 use std::time::Instant;
 use futures_util::StreamExt;
@@ -11,6 +11,35 @@ use std::io::{self, BufRead};
 use inquire::{error::InquireError,Select};
 use std::fmt;
 use std::str::FromStr;
+use clap; // 3.1.6
+use clap::Parser;
+use std::net::Ipv4Addr;
+use std::path::{Path, PathBuf};
+
+
+/// Simple program to greet a person
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+    /// Name of the person to greet
+	#[arg(long)]
+    host: Ipv4Addr,
+
+    /// Number of times to greet
+    #[arg(long)]
+    port: u16,
+
+    #[arg(short, long)]
+	settings: PathBuf
+}
+
+impl Args {
+	pub fn address(&self)->String{
+		format!("{}:{}",self.host, self.port)
+	} 
+}
+
+
 
 #[derive(Debug)]
 enum CRUDAction {
@@ -47,9 +76,18 @@ impl FromStr for CRUDAction {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-	let addr = "http://127.0.0.1:50001";
+	let data_dir = std::path::PathBuf::from_iter([std::env!("CARGO_MANIFEST_DIR"),"ssl"]);
+	let cert = std::fs::read_to_string(data_dir.join("rootCA.crt"))?;
+	let ca = Certificate::from_pem(cert);
 
-	let mut client = StatusDeviceServiceClient::connect(addr).await;
+	let args = Args::parse();
+
+	let addr = format!("http://{}",args.address()).clone();
+
+	let tls = ClientTlsConfig::new().ca_certificate(ca);
+	let channel = Channel::from_shared(addr)?.tls_config(tls)?.connect().await?;
+
+	let mut client = StatusDeviceServiceClient::new(channel);
 
 
     let mut lines = io::stdin().lock().lines();
@@ -95,7 +133,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 				/* crear DeviceCreateRequest { name,  path}*/
 
 				let request = Request::new(DeviceCreateRequest{name, path});
-				match client.as_mut().expect("No value").create_device_register(request).await{
+				match client.create_device_register(request).await{
 					Ok(response)=>{
 						println!("Reponse Unique ===> MSG = {:?}", response.into_inner());
 					},
@@ -129,8 +167,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 					};
 
 				let request = Request::new(DeviceRequest{ids:input_value});
-				match client.as_mut().expect("No
-				value").get_memory_info(request).await{
+				match client.get_memory_info(request).await{
 				Ok(response)=>{
 						println!("Reponse Unique ===> MSG = {:?}", response.into_inner());
 				 },

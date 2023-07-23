@@ -14,7 +14,7 @@ prost = "0.11.9"
 prost-types = "0.11.9"
 tokio = { version = "1.28.2", features = ["tokio-macros", "macros", "full"] }
 tokio-stream = { version = "0.1.14", features = ["full"] }
-tonic = "0.9.2"
+tonic = { version = "0.9.2", features = ["tls", "tls-roots"] }
 futures-util = "0.3.28"
 futures-core = "0.3.28"
 device_status = {git = "https://gitlab.com/centro-sismologico/device-info-status"}
@@ -24,6 +24,9 @@ inquire = { version = "0.6.2", features = ["date"] }
 tokio-rustls = "0.24.1"
 tower-http = { version = "0.4.1", features = ["full"] }
 rustls-pemfile = "1.0.3"
+clap = { version = "4.3.19", features = ["derive"] }
+csv = "1.2.2"
+serde = { version = "1.0.174", features = ["derive", "serde_derive"] }
 
 [build-dependencies]
 tonic-build = "0.9.2"
@@ -32,10 +35,14 @@ tonic-build = "0.9.2"
 name = "server"
 path = "src/app/server.rs"
 
-# [[bin]]
-# name = "server_ssl"
-# path = "src/app/server_ssl.rs"
+[[bin]]
+name = "server_ssl"
+path = "src/app/server_ssl.rs"
 
 [[bin]]
 name = "client"
 path = "src/app/client.rs"
+
+[[bin]]
+name = "client_ssl"
+path = "src/app/client_ssl.rs"

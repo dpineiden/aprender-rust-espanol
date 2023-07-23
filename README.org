@@ -292,6 +292,19 @@ Quedan como ejercicios propuestos: UPDATE, DELETE y LIST.
 
 #rust #grpc #client #server #inquire #ui #tui
 
+** Sesión 30, publicar en un host con ip pública y habilitar ssl.
+
+#+TITLE: Generar certificados self-signed
+
+
+En esta sesión se activa la configuración del servicio gRPC en un host
+público (vps #digitalocean) debian. Se evalua su operación y se
+reescribe parte del código de los binarios para hacer más flexible sus
+parámetros de configuración. Además se realiza la configuración para
+operar con SSL, creando las llaves y agregando la capa de
+encriptación.
+
+
 ** Temario
 
 -[X] Herramientas de desarrollo en Rust
@@ -316,7 +329,9 @@ Quedan como ejercicios propuestos: UPDATE, DELETE y LIST.
 
 -[X] macros
 
--[P] gRPC, protobuffers -> API Rest // multilenguaje
+-[X] gRPC, protobuffers -> API Rest // multilenguaje
+
+-[O] Interfaces gráficas -> recomienden!!
 
 -[P] Borrow, lifetimes, derives
 
@@ -327,8 +342,6 @@ Quedan como ejercicios propuestos: UPDATE, DELETE y LIST.
 -[O] Web assembly -> INTERFACES GRAFICAS
 
 -[O] Conector a Python
-
--[O] Interfaces gráficas -> recomienden!!
 
 -[O] Bots 
 

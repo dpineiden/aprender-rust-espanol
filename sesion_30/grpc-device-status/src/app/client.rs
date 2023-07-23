@@ -11,6 +11,35 @@ use std::io::{self, BufRead};
 use inquire::{error::InquireError,Select};
 use std::fmt;
 use std::str::FromStr;
+use clap; // 3.1.6
+use clap::Parser;
+use std::net::Ipv4Addr;
+use std::path::{Path, PathBuf};
+
+
+/// Simple program to greet a person
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+    /// Name of the person to greet
+	#[arg(long)]
+    host: Ipv4Addr,
+
+    /// Number of times to greet
+    #[arg(long)]
+    port: u16,
+
+    #[arg(short, long)]
+	settings: PathBuf
+}
+
+impl Args {
+	pub fn address(&self)->String{
+		format!("{}:{}",self.host, self.port)
+	} 
+}
+
+
 
 #[derive(Debug)]
 enum CRUDAction {
@@ -47,7 +76,9 @@ impl FromStr for CRUDAction {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-	let addr = "http://127.0.0.1:50001";
+	let args = Args::parse();
+
+	let addr = format!("http://{}",args.address());;
 
 	let mut client = StatusDeviceServiceClient::connect(addr).await;
 

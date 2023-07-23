@@ -1,6 +1,16 @@
 #+TITLE: Generar certificados self-signed
 
 
+En esta sesión se activa la configuración del servicio gRPC en un host
+público (vps #digitalocean) debian. Se evalua su operación y se
+reescribe parte del código de los binarios para hacer más flexible sus
+parámetros de configuración. Además se realiza la configuración para
+operar con SSL, creando las llaves y agregando la capa de
+encriptación.
+
+#rust #emacs #ssl #openssl #tls #grpc #tonic
+
+
 #+begin_src bash
 sudo apt-get -y install openssl
 #+end_src
@@ -30,6 +40,22 @@ EN un proyecto gRPC, para incluir tls:
 
 https://github.com/hyperium/tonic/blob/master/examples/src/tls/server.rs
 
+
+Instalar librerias de criptografia:
+
+#+begin_src bash
+sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
+#+end_src
+
+
+Cuando se usa *openssl* con certificados self-signed recomienan usar:
+https://docs.rs/tonic-openssl/0.1.0/tonic_openssl/
+
+Y teniendo en cuenta esto:
+https://docs.rs/tonic/0.4.3/tonic/struct.Request.html#method.peer_certs
+
+De aquí:
+https://stackoverflow.com/questions/76049656/unexpected-notvalidforname-with-rusts-tonic-with-tls
 
 ** En gRPC
 
@@ -132,3 +158,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 #+end_src
+
+
+* Server Público
+
+IP 165.227.193.0
