@@ -304,6 +304,15 @@ parámetros de configuración. Además se realiza la configuración para
 operar con SSL, creando las llaves y agregando la capa de
 encriptación.
 
+** Sesión 31, GUI con Iced(I)
+
+En esta sesión 31 del taller de Rust comenzamos  a estudiar el
+framework para hacer interfaces gráficas (apps de escritorio y web)
+Iced, basado en la arquitectura de Elm. Revisamos conceptos generales
+de interfaces gráficas y estudiamos la filosofía de la arquitectura
+State,Messages,View,Update para pasar a estudiar algunos ejemplos
+prácticos existentes.
+
 
 ** Temario
 

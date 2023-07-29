@@ -1,0 +1,62 @@
+#TITLE: Sesión 31, Taller de Rust. GUI con Iced (I)
+
+En esta sesión 31 del taller de Rust comenzamos  a estudiar el
+framework para hacer interfaces gráficas (apps de escritorio y web)
+Iced, basado en la arquitectura de Elm. Revisamos conceptos generales
+de interfaces gráficas y estudiamos la filosofía de la arquitectura
+State,Messages,View,Update para pasar a estudiar algunos ejemplos
+prácticos existentes.
+
+#rust #elm #iced #gui #examples #tour
+
+
+Iced está basado en Elm
+
+Ocupa las diversas características de Rust:
+
+- Structs
+- Enum
+- Traits
+
+Se caracteriza por ser:
+
+- Multiplataforma
+- Layout responsiva
+- Widgets
+- Debug
+
+Elm es un lenguaje funcional que 'transpila' a JS
+
+El modelo o arquitectura de GUI se basa en:
+
+- State
+- Messages
+- View Logic
+- Update Logic
+
+Tiene un buen conjunto de ejemplos:
+
+Clonar:
+
+#+begin_src bash
+git clone https://github.com/iced-rs/iced
+#+end_src
+
+Ejemplos a estudiar:
+
+- Base de Hola Mundo
+- Tour
+
+UN elemento base es:
+
+- trait *Application*
+
+Toda GUI de Iced se basa en Application o *SandBox* la versión reducida.
+
+
+#+begin_src emacs-lisp
+(global-auto-revert-mode t)
+(setq auto-revert-use-notify nil)
+#+end_src
+
+#+RESULTS:
