@@ -314,6 +314,16 @@ State,Messages,View,Update para pasar a estudiar algunos ejemplos
 prácticos existentes.
 
 
+** Sesión 32: GUI con  Iced (II)
+
+En esta sesión se continúa el estudio de creación de interfaces
+gráficas con Iced, se hace una revisión conceptual del diseño del
+ejemplo /tour/ y se estudia la creación de  widgets y  overlays. 
+Además de estudiar la modularización entre frontend y backend de una
+app GUI en download_progress.
+
+
+
 ** Temario
 
 -[X] Herramientas de desarrollo en Rust
@@ -340,7 +350,7 @@ prácticos existentes.
 
 -[X] gRPC, protobuffers -> API Rest // multilenguaje
 
--[O] Interfaces gráficas -> recomienden!!
+-[P] Interfaces gráficas -> recomienden!!
 
 -[P] Borrow, lifetimes, derives
 

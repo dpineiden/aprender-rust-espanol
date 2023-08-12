@@ -1,0 +1,23 @@
+#+TITLE: 32, Taller de rust: Iced II
+
+En esta sesión se continúa el estudio de creación de interfaces
+gráficas con Iced, se hace una revisión conceptual del diseño del
+ejemplo /tour/ y se estudia la creación de  widgets y  overlays. 
+Además de estudiar la modularización entre frontend y backend de una
+app GUI en download_progress.
+
+#rust #gui #iced #modal #download_progress
+
+* Revisión sesión I
+
+¿Cómo desarrollar un diseño?
+
+* Diseñar un downloader
+
+Dos archvos:
+
+- main :: ventana
+- download :: lógica de control
+
+
+Usa 'subscription' de iced.

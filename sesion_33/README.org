@@ -1,0 +1,176 @@
+#+TITLE: Taller de Rust 33: GUI con Iced (III), Juego de la Vida
+
+
+** De qué trata El juego de la vida
+
+John Conway definió una serie de reglas en un plano discretizado en
+una malla, en que cada celda puede estar viva o muerta según el estado
+de sus vecinos. Es la base fundamental para una importante área de la
+computación y a partir de esta se han desarrollado interesantes
+proyectos para simulación de vida, tanto de manera simple como con
+añadidos de características genéticas e inteligencia artifical.
+
+http://raganwald.com/2020/05/03/fractran.html
+
+https://youtu.be/xP5-iIeKXE8
+
+
+Se han encontrado figuras especiales, llamados 'gliders' que mantienen
+su replicabilidad y generan movimiento.
+
+https://btm.qva.mybluehost.me/building-arbitrary-life-patterns-in-15-gliders/
+
+Esta simulación permite definir sistemas lógicos como compuertas *and*
+o bien *or*, entre otras hasta sistemas de computación en el mismo
+*mundo* de la simulación.
+
+La evolución de cada etapa depende del caso anterior, y así
+sucesivamente. Hay figuras que terminan extinguiendose y otras que
+perduran. Dependiendo de la simulación, se puede establecer un mundo
+limitado o conectado por sus bordes para hacerlo ilimitado.
+
+Como principal documento de referencia, tendremos al libro 
+
+#+begin_example
+Conway’s Game of Life
+Nathaniel Johnston
+and
+Dave Greene
+conwaylife.com/book
+Mathematics and Construction
+#+end_example
+
+Ver online simulador:
+https://playgameoflife.com/
+
+Artículo de wikipedia:
+https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
+*** Reglas básicas de Conway
+
+Las bases fundamentales de un juego de la vida son:
+
+- Cada celda puede estar viva o muerta
+- El mundo es infinito
+
+De una etapa o generación a otra se verifica:
+
+- si una celda esta *viva*, sobrevive a la próxima generación si tiene
+  2 o 3 vecinas vivas. De otra manera muera.
+
+- Si una celda está *muerta* la próxima generación estará viva si
+  tiene exactamente 3 vecinos vivos. De otra manera muera.
+
+Ahora, ¿cómo evaluar quienes son vecinos o no?
+
+#+begin_src bash
+ls img
+#+end_src
+
+#+RESULTS:
+| celdas-vecinos.png  |
+| gameoflife_iced.png |
+
+[[file:./img/celdas-vecinos.png]]
+
+
+Se deben considerar los vecinos lateral horizontal, vertical y
+diagonales.
+
+
+** Implementación en CPU
+
+Esta implementación en *c++* solamente hace la iteración de uno a otro.
+Y es parte de un proyecto académico de un curso en que se realizó esta
+tarea, el algoritmo en sí se implementa de la manera siguiente:
+
+#+begin_src c++
+  if (xin<rows && yin<cols) {
+	  unsigned check = 0;
+	  unsigned up = 0;
+	  up = rows-1;
+	  if (xin > 0){
+		up = xin - 1;
+	  } 
+	 
+
+	  unsigned down = xin + 1;
+	  if (down==rows) {
+		down=0;
+	  }
+
+	  unsigned left = 0;
+	  left = cols -1;
+	  if (yin>0){
+		left = yin - 1;
+	  } 
+
+	  unsigned right = yin + 1;
+	  if (right==cols) {
+		right=0;
+	  }
+
+	  bool cell =  getValue(xin,yin);
+	  int up_val = getValue(up,yin);
+	  int down_val = getValue(down,yin);
+	  int left_val = getValue(xin,left);
+	  int right_val = getValue(xin,right);
+	  int up_east_val = getValue(up, right);
+	  int up_west_val = getValue(up, left);
+	  int down_east_val = getValue(down, right);
+	  int down_west_val = getValue(down, left);
+
+	  check = up_val + down_val + left_val + right_val+up_east_val+up_west_val+down_east_val+down_west_val;
+	  if (cell==false && check==3) {
+		return true;
+	  } else if (cell==true && (check==2 || check==3)) {
+		return true;
+	  } else {
+		return false;
+	  }
+  } else {
+	throw std::invalid_argument("Índices fuera de rango");
+  } 
+#+end_src
+
+En que 'getValue' es una función definida:
+
+#+begin_src C++
+bool Grid::getValue(int i, int j){
+  if (i<getRows() && j<getCols()) {
+	return this->matrix[i*cols+j];
+  } else {
+	throw std::invalid_argument("Indexes must be low than number of rows and cols");
+  }
+};
+ 
+#+end_src
+
+Básicamente se mapea el mundo infinito como un vector (array) con
+condicionales que permiten conectar los bordes. Evaluando una
+generación a otra.
+
+** Implementación en GPU
+
+En GPU la implementación es algo más compleja pero se logra una
+diferencia notable en la eficiencia del algoritmo. (revisar código)
+
+** Visualización de Iced
+
+Para ver el ejemplo en *iced* basta correr el ejemplo
+
+#+begin_src bash
+cargo run --package game_of_life
+#+end_src
+
+
+Se observa una pantalla:
+
+[[file:./img/gameoflife_iced.png]]
+
+
+Entonces, la implementación en GUI trata de visualizar cada generación
+del mundo Conway y pues, hacer el backend que hace el trabajo de cálculo.
+
+*** Componentes
+
