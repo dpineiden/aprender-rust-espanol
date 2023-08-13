@@ -323,6 +323,17 @@ Además de estudiar la modularización entre frontend y backend de una
 app GUI en download_progress.
 
 
+** Sesión 32: GUI con  Iced (III), Juego de la Vida Conway
+
+Esta sesión trata de estudiar el ejemplo base de juego de la vida de Conway, en una implementación especial para visualizar en iced.
+
+John Conway definió una serie de reglas en un plano discretizado en
+una malla, en que cada celda puede estar viva o muerta según el estado
+de sus vecinos. Es la base fundamental para una importante área de la
+computación y a partir de esta se han desarrollado interesantes
+proyectos para simulación de vida, tanto de manera simple como con
+añadidos de características genéticas e inteligencia artifical.
+
 
 ** Temario
 
