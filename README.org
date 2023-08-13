@@ -294,9 +294,6 @@ Quedan como ejercicios propuestos: UPDATE, DELETE y LIST.
 
 ** Sesión 30, publicar en un host con ip pública y habilitar ssl.
 
-#+TITLE: Generar certificados self-signed
-
-
 En esta sesión se activa la configuración del servicio gRPC en un host
 público (vps #digitalocean) debian. Se evalua su operación y se
 reescribe parte del código de los binarios para hacer más flexible sus
